@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner3"
+        android:id="@+id/modulSp"
         android:layout_width="263dp"
         android:layout_height="25dp"
         android:layout_marginStart="8dp"
@@ -92,7 +92,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginBottom="8dp"
         android:text="@string/ModulTxV"
-        app:layout_constraintBottom_toTopOf="@+id/spinner3"
+        app:layout_constraintBottom_toTopOf="@+id/modulSp"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
@@ -103,7 +103,7 @@
         android:layout_marginRight="60dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner3" />
+        app:layout_constraintTop_toBottomOf="@+id/modulSp" />
 
     <TextView
         android:id="@+id/dbTextView"
