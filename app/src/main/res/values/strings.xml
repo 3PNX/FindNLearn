@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">FindNLearn</string>
+    <string name="FindButton">FIND</string>
+    <string name="CalendarButton">CALENDAR</string>
+    <string name="ProfileButton">PROFILE</string>
+    <string name="ViewGroupButton">VIEW GROUPS</string>
+    <string name="CreateButton">CREATE</string>
+    <string name="HomeTV">HOME</string>
+    <string name="StudiengangTxV">Studiengang</string>
+    <string name="SemesterTxV">Semester</string>
+    <string name="ModulTxV">Modul</string>
+</resources>

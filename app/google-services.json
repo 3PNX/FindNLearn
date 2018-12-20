@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "159459204479",
+    "firebase_url": "https://findnlearn-bd1ef.firebaseio.com",
+    "project_id": "findnlearn-bd1ef",
+    "storage_bucket": "findnlearn-bd1ef.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:159459204479:android:b5a27cad4c4d38af",
+        "android_client_info": {
+          "package_name": "erkewesa.org.findnlearn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "159459204479-ni4bbv313l9heirnfn1ijmu5b32pbbqi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "erkewesa.org.findnlearn",
+            "certificate_hash": "b80c64d0b16b2753db067f87929083ba8b334ead"
+          }
+        },
+        {
+          "client_id": "159459204479-6q5si4v2sm6nrg8fc9br1nieengrm9me.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpT87lazzvdj_Fho7j99sY8vXhs_qoFww"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "159459204479-6q5si4v2sm6nrg8fc9br1nieengrm9me.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
