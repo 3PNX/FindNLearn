@@ -87,7 +87,7 @@ public class FindActivity extends AppCompatActivity{
 
             }
         });
-        //NOCH NULLPOINTER EXCEPTION
+        //NOCH NULLPOINTER EXCEPTION AB HIER
         String selectedStudiengang=studgSp.getSelectedItem().toString();
         DatabaseReference dbSemester=mDataBase.child("Semester").child(selectedStudiengang);
 
