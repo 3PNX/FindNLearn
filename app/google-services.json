@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "159459204479-tdukgu04kt5q5i9bsvm5ud9engdp9mmo.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "erkewesa.org.findnlearn",
+            "certificate_hash": "fde7454f3031866169151b4db9cadc0f2a076c55"
+          }
+        },
+        {
           "client_id": "159459204479-6q5si4v2sm6nrg8fc9br1nieengrm9me.apps.googleusercontent.com",
           "client_type": 3
         }
