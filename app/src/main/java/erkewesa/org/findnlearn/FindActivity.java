@@ -1,5 +1,6 @@
 package erkewesa.org.findnlearn;
 
+import android.media.tv.TvInputManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,12 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
-
+import android.widget.TextView;
 
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseException;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
@@ -31,12 +33,17 @@ public class FindActivity extends AppCompatActivity{
     Spinner semesterSp;
     Spinner modulSp;
     Button btnGo;
+    TextView tvStudiengang;
+    TextView tvSemester;
+    TextView tvModul;
 
     String selectedStudiengang;
     String selectedSemester;
 
     int anzSemester;
     private DatabaseReference mDataBase;
+    private DatabaseReference dbSemester;
+    private DatabaseReference dbModul;
     private ArrayList<String> arrStudiengaenge =new ArrayList<String>();
     private ArrayList<String> arrSemester=new ArrayList<String>();
     private ArrayList<String> arrModule=new ArrayList<String>();
@@ -51,6 +58,10 @@ public class FindActivity extends AppCompatActivity{
         studgSp= findViewById(R.id.studgSp);
         semesterSp=findViewById(R.id.semesterSp);
         modulSp=findViewById(R.id.modulSp);
+        tvStudiengang=findViewById(R.id.studgTxV);
+        tvSemester=findViewById(R.id.semesterTxV);
+        tvModul=findViewById(R.id.modulTxV);
+
 
         DatabaseReference dbStudiengänge=mDataBase.child("Studiengänge");
         final ArrayAdapter<String> studAdapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item, arrStudiengaenge);
@@ -62,6 +73,11 @@ public class FindActivity extends AppCompatActivity{
         studgSp.setAdapter(studAdapter);
         semesterSp.setAdapter(semAdapter);
         modulSp.setAdapter(modulAdapter);
+
+       tvSemester.setVisibility(View.INVISIBLE);
+        semesterSp.setVisibility(View.INVISIBLE);
+        tvModul.setVisibility(View.INVISIBLE);
+        modulSp.setVisibility(View.INVISIBLE);
 
 
 
@@ -104,20 +120,37 @@ public class FindActivity extends AppCompatActivity{
                 semesterSp.setSelection(0);
 
 
-                DatabaseReference dbSemester=mDataBase.child("Semester").child(selectedStudiengang);
+                try {
+                     dbSemester= mDataBase.child("Semester").child(selectedStudiengang);
+                     tvSemester.setVisibility(View.VISIBLE);
+                     semesterSp.setVisibility(View.VISIBLE);
+                }catch(DatabaseException ex){
+                    dbSemester = mDataBase.child("Semester").child("Wahl");
+                    tvSemester.setVisibility(View.INVISIBLE);
+                    semesterSp.setVisibility(View.INVISIBLE);
+                    tvModul.setVisibility(View.INVISIBLE);
+                    modulSp.setVisibility(View.INVISIBLE);
+                }
 
-
-                dbSemester.addValueEventListener(new ValueEventListener() {
+                 dbSemester.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        anzSemester = dataSnapshot.getValue(Integer.class);
-                        arrSemester.clear();
 
-                        for(int i=1;i<=anzSemester;i++){
-                            arrSemester.add(""+i);
+                        try {
+                            anzSemester = dataSnapshot.getValue(Integer.class);
+                            arrSemester.clear();
+                            arrSemester.add("Bitte wählen...");
+
+                            for (int i = 1; i <= anzSemester; i++) {
+                                arrSemester.add("" + i);
+                            }
+                            semAdapter.notifyDataSetChanged();
+                        } catch(Exception e){
+                            String value =dataSnapshot.getValue(String.class);
+                            arrSemester.add(value);
+                            semAdapter.notifyDataSetChanged();
+
                         }
-                        semAdapter.notifyDataSetChanged();
-
 
 
 
@@ -132,40 +165,54 @@ public class FindActivity extends AppCompatActivity{
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         arrModule.clear();
-                        selectedSemester=semesterSp.getSelectedItem().toString();
+                        selectedSemester=semesterSp.getItemAtPosition(position).toString();
 
 
-                        DatabaseReference dbModul=mDataBase.child("Module").child(selectedStudiengang).child("Semester "+selectedSemester);
+                        if(!selectedStudiengang.equals("Bitte wählen...")||!selectedSemester.equals("Bitte wählen...")) {
+                            try {
+                                dbModul = mDataBase.child("Module").child(selectedStudiengang).child("Semester " + selectedSemester);
+                                tvModul.setVisibility(View.VISIBLE);
+                                modulSp.setVisibility(View.VISIBLE);
 
-                        dbModul.addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                                String values =dataSnapshot.getValue(String.class);
-                                arrModule.add(values);
+                                dbModul.addChildEventListener(new ChildEventListener() {
+                                    @Override
+                                    public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                                        String values = dataSnapshot.getValue(String.class);
+                                        arrModule.add(values);
+                                        modulAdapter.notifyDataSetChanged();
+                                    }
+
+                                    @Override
+                                    public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                                    }
+
+                                    @Override
+                                    public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }catch(DatabaseException e){
+                                tvModul.setVisibility(View.INVISIBLE);
+                                modulSp.setVisibility(View.INVISIBLE);
+                                arrModule.clear();
+                                arrModule.add("Bitte wählen...");
                                 modulAdapter.notifyDataSetChanged();
                             }
-
-                            @Override
-                            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                            }
-
-                            @Override
-                            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                            }
-
-                            @Override
-                            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                            }
-                        });
-
+                        } else{
+                            arrModule.add("Bitte wählen...");
+                            modulAdapter.notifyDataSetChanged();
+                        }
 
                     }
 
