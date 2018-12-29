@@ -106,14 +106,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/cr_tag"
+    <TextView
+        android:id="@+id/cr_datum"
+        android:layout_width="229dp"
+        android:layout_height="31dp"
+        tools:layout_editor_absoluteX="91dp"
+        tools:layout_editor_absoluteY="276dp" />
+
+    <Button
+        android:id="@+id/cr_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:hint="Tag.MonatJahr"
-        android:inputType="datetime"
-        tools:layout_editor_absoluteX="109dp"
-        tools:layout_editor_absoluteY="263dp"
-        tools:text="@tools:sample/date/ddmmyy" />
+        android:text="Lerntermin erstellen"
+        tools:layout_editor_absoluteX="98dp"
+        tools:layout_editor_absoluteY="347dp" />
+
 </android.support.constraint.ConstraintLayout>
