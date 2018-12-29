@@ -247,13 +247,11 @@ public class CreateActivity extends AppCompatActivity {
 
 
 
-        cr_stuga= findViewById(R.id.cr_stuga);
-        cr_se=findViewById(R.id.cr_se);
-        cr_mod=findViewById(R.id.cr_mod);
+//        cr_stuga= findViewById(R.id.cr_stuga);
+//        cr_se=findViewById(R.id.cr_se);
+//        cr_mod=findViewById(R.id.cr_mod);
         cr_datum= findViewById(R.id.cr_datum);
         cr_create=(Button) findViewById(R.id.cr_create);
-
-        cr_datum.setVisibility(View.VISIBLE);
 
         cr_create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -262,10 +260,10 @@ public class CreateActivity extends AppCompatActivity {
 
                 Meetings m = new Meetings();
                 m.setDatum((String) cr_datum.getText());
-                m.setModul((String) cr_mod.getSelectedItem());
-                m.setSemester((Long) cr_se.getSelectedItem());
-                m.setStudiengang((String) cr_stuga.getSelectedItem());
-                m.setStudg_modul((String) cr_stuga.getSelectedItem() + "_" + cr_mod.getSelectedItem());
+                m.setModul((String) modulSp.getSelectedItem());
+                m.setSemester((Long) semesterSp.getSelectedItem());
+                m.setStudiengang((String) studgSp.getSelectedItem());
+                m.setStudg_modul( studgSp.getSelectedItem().toString() + "_" + modulSp.getSelectedItem().toString());
                 mRefChild.push().setValue(m);
 
             }

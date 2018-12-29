@@ -106,35 +106,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/cr_datum"
-        android:layout_width="229dp"
-        android:layout_height="29dp"
-        android:layout_marginStart="7dp"
-        android:layout_marginLeft="7dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="64dp"
-        android:layout_marginRight="64dp"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintBottom_toTopOf="@+id/cr_create"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cr_l_tag"
-        app:layout_constraintTop_toBottomOf="@+id/cr_mod" />
-
     <Button
         android:id="@+id/cr_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="207dp"
         android:layout_marginLeft="207dp"
-        android:layout_marginTop="2dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginBottom="156dp"
         android:text="CREATE MEET"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cr_datum" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/cr_datum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="70dp"
+        android:layout_marginRight="70dp"
+        android:layout_marginBottom="2dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="DD.Monat.YYYY"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/cr_create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cr_l_tag"
+        app:layout_constraintTop_toBottomOf="@+id/cr_mod" />
 
 </android.support.constraint.ConstraintLayout>
