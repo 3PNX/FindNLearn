@@ -36,12 +36,15 @@ public class CreateActivity extends AppCompatActivity {
     Button cr_create;
 
     // das Zeugs aus Find
-    String selectedStudiengang;
-    String selectedSemester;
-
+    Spinner studgSp;
+    Spinner semesterSp;
+    Spinner modulSp;
     TextView tvStudiengang;
     TextView tvSemester;
     TextView tvModul;
+
+    String selectedStudiengang;
+    String selectedSemester;
 
     int anzSemester;
     private DatabaseReference mDataBase;
@@ -50,32 +53,24 @@ public class CreateActivity extends AppCompatActivity {
     private ArrayList<String> arrStudiengaenge =new ArrayList<String>();
     private ArrayList<String> arrSemester=new ArrayList<String>();
     private ArrayList<String> arrModule=new ArrayList<String>();
+
     // bis hier
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create);
-//        mDataBase=FirebaseDatabase.getInstance().getReference();
         mRef = FirebaseDatabase.getInstance().getReference();
 
-        cr_stuga= findViewById(R.id.cr_stuga);
-        cr_se=findViewById(R.id.cr_se);
-        cr_mod=findViewById(R.id.cr_mod);
-        cr_datum= findViewById(R.id.cr_datum);
-        cr_create=(Button) findViewById(R.id.cr_create);
-
         //find jo
-        mDataBase = FirebaseDatabase.getInstance().getReference();
-
-        cr_stuga= findViewById(R.id.cr_stuga);
-        cr_se=findViewById(R.id.cr_se);
-        cr_mod=findViewById(R.id.cr_mod);
-//        tvStudiengang=findViewById(R.id.studgTxV);
-//        tvSemester=findViewById(R.id.semesterTxV);
-//        tvModul=findViewById(R.id.modulTxV);
-
-
+        mDataBase=FirebaseDatabase.getInstance().getReference();
+        mDataBase=FirebaseDatabase.getInstance().getReference();
+        studgSp= findViewById(R.id.cr_stuga);
+        semesterSp=findViewById(R.id.cr_se);
+        modulSp=findViewById(R.id.cr_mod);
+        tvStudiengang=findViewById(R.id.cr_l_stuga);
+        tvSemester=findViewById(R.id.cr_l_se);
+        tvModul=findViewById(R.id.cr_l_mod);
 
 
         DatabaseReference dbStudiengänge=mDataBase.child("Studiengänge");
@@ -83,11 +78,19 @@ public class CreateActivity extends AppCompatActivity {
         final ArrayAdapter<String> semAdapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item, arrSemester);
         final ArrayAdapter<String> modulAdapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item, arrModule);
 
-        cr_stuga.setAdapter(studAdapter);
-        cr_se.setAdapter(semAdapter);
-        cr_mod.setAdapter(modulAdapter);
 
-        // noch immer Bums aus Find
+
+        studgSp.setAdapter(studAdapter);
+        semesterSp.setAdapter(semAdapter);
+        modulSp.setAdapter(modulAdapter);
+
+        tvSemester.setVisibility(View.INVISIBLE);
+        semesterSp.setVisibility(View.INVISIBLE);
+        tvModul.setVisibility(View.INVISIBLE);
+        modulSp.setVisibility(View.INVISIBLE);
+
+
+
         dbStudiengänge.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -119,24 +122,24 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-        cr_stuga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        studgSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selectedStudiengang=cr_stuga.getSelectedItem().toString();
+                selectedStudiengang=studgSp.getSelectedItem().toString();
                 studAdapter.notifyDataSetChanged();
-                cr_se.setSelection(0);
+                semesterSp.setSelection(0);
 
 
                 try {
                     dbSemester= mDataBase.child("Semester").child(selectedStudiengang);
                     tvSemester.setVisibility(View.VISIBLE);
-                    cr_se.setVisibility(View.VISIBLE);
+                    semesterSp.setVisibility(View.VISIBLE);
                 }catch(DatabaseException ex){
                     dbSemester = mDataBase.child("Semester").child("Wahl");
                     tvSemester.setVisibility(View.INVISIBLE);
-                    cr_se.setVisibility(View.INVISIBLE);
+                    semesterSp.setVisibility(View.INVISIBLE);
                     tvModul.setVisibility(View.INVISIBLE);
-                    cr_mod.setVisibility(View.INVISIBLE);
+                    modulSp.setVisibility(View.INVISIBLE);
                 }
 
                 dbSemester.addValueEventListener(new ValueEventListener() {
@@ -168,18 +171,18 @@ public class CreateActivity extends AppCompatActivity {
 
                     }
                 });
-                cr_se.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                semesterSp.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                         arrModule.clear();
-                        selectedSemester=cr_se.getItemAtPosition(position).toString();
+                        selectedSemester=semesterSp.getItemAtPosition(position).toString();
 
 
                         if(!selectedStudiengang.equals("Bitte wählen...")||!selectedSemester.equals("Bitte wählen...")) {
                             try {
                                 dbModul = mDataBase.child("Module").child(selectedStudiengang).child("Semester " + selectedSemester);
                                 tvModul.setVisibility(View.VISIBLE);
-                                cr_mod.setVisibility(View.VISIBLE);
+                                modulSp.setVisibility(View.VISIBLE);
 
 
                                 dbModul.addChildEventListener(new ChildEventListener() {
@@ -212,7 +215,7 @@ public class CreateActivity extends AppCompatActivity {
                                 });
                             }catch(DatabaseException e){
                                 tvModul.setVisibility(View.INVISIBLE);
-                                cr_mod.setVisibility(View.INVISIBLE);
+                                modulSp.setVisibility(View.INVISIBLE);
                                 arrModule.clear();
                                 arrModule.add("Bitte wählen...");
                                 modulAdapter.notifyDataSetChanged();
@@ -238,17 +241,20 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
-
-
         // end of find jo
 
         // meet erstellen
+
+
+
+        cr_stuga= findViewById(R.id.cr_stuga);
+        cr_se=findViewById(R.id.cr_se);
+        cr_mod=findViewById(R.id.cr_mod);
+        cr_datum= findViewById(R.id.cr_datum);
+        cr_create=(Button) findViewById(R.id.cr_create);
+
+        cr_datum.setVisibility(View.VISIBLE);
+
         cr_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

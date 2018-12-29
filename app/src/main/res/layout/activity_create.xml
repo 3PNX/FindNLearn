@@ -109,16 +109,32 @@
     <TextView
         android:id="@+id/cr_datum"
         android:layout_width="229dp"
-        android:layout_height="31dp"
-        tools:layout_editor_absoluteX="91dp"
-        tools:layout_editor_absoluteY="276dp" />
+        android:layout_height="29dp"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintBottom_toTopOf="@+id/cr_create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cr_l_tag"
+        app:layout_constraintTop_toBottomOf="@+id/cr_mod" />
 
     <Button
         android:id="@+id/cr_create"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Lerntermin erstellen"
-        tools:layout_editor_absoluteX="98dp"
-        tools:layout_editor_absoluteY="347dp" />
+        android:layout_marginStart="207dp"
+        android:layout_marginLeft="207dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginRight="60dp"
+        android:layout_marginBottom="156dp"
+        android:text="CREATE MEET"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cr_datum" />
 
 </android.support.constraint.ConstraintLayout>
