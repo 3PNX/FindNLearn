@@ -99,17 +99,11 @@
         android:id="@+id/searchBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
-        android:text="Button"
+        android:text="@string/SearchButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modulSp" />
 
-    <TextView
-        android:id="@+id/dbTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="61dp"
-        tools:layout_editor_absoluteY="420dp" />
 </android.support.constraint.ConstraintLayout>

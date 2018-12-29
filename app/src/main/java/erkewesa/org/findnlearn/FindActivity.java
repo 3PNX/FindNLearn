@@ -1,5 +1,6 @@
 package erkewesa.org.findnlearn;
 
+import android.content.Intent;
 import android.media.tv.TvInputManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -32,7 +33,7 @@ public class FindActivity extends AppCompatActivity{
     Spinner studgSp;
     Spinner semesterSp;
     Spinner modulSp;
-    Button btnGo;
+    Button searchBtn;
     TextView tvStudiengang;
     TextView tvSemester;
     TextView tvModul;
@@ -54,13 +55,15 @@ public class FindActivity extends AppCompatActivity{
         setContentView(R.layout.activity_find);
         mDataBase=FirebaseDatabase.getInstance().getReference();
 
-        btnGo=findViewById(R.id.searchBtn);
+        searchBtn=findViewById(R.id.searchBtn);
         studgSp= findViewById(R.id.studgSp);
         semesterSp=findViewById(R.id.semesterSp);
         modulSp=findViewById(R.id.modulSp);
         tvStudiengang=findViewById(R.id.studgTxV);
         tvSemester=findViewById(R.id.semesterTxV);
         tvModul=findViewById(R.id.modulTxV);
+
+        searchBtn.setEnabled(false);
 
 
         DatabaseReference dbStudiengänge=mDataBase.child("Studiengänge");
@@ -173,6 +176,7 @@ public class FindActivity extends AppCompatActivity{
                                 dbModul = mDataBase.child("Module").child(selectedStudiengang).child("Semester " + selectedSemester);
                                 tvModul.setVisibility(View.VISIBLE);
                                 modulSp.setVisibility(View.VISIBLE);
+                                searchBtn.setEnabled(true);
 
                                 dbModul.addChildEventListener(new ChildEventListener() {
                                     @Override
@@ -227,6 +231,16 @@ public class FindActivity extends AppCompatActivity{
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
+            }
+        });
+
+        searchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent searchResultsActivityIntent=new Intent(getApplicationContext(),SearchResultsActivity.class);
+                searchResultsActivityIntent.putExtra("Studiengang",studgSp.getSelectedItem().toString());
+                searchResultsActivityIntent.putExtra("Modul",modulSp.getSelectedItem().toString());
+                startActivity(searchResultsActivityIntent);
             }
         });
 

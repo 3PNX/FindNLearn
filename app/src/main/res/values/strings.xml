@@ -9,4 +9,5 @@
     <string name="StudiengangTxV">Studiengang</string>
     <string name="SemesterTxV">Semester</string>
     <string name="ModulTxV">Modul</string>
+    <string name="SearchButton">Search</string>
 </resources>
