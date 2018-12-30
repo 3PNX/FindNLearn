@@ -9,6 +9,7 @@ import android.text.method.DateTimeKeyListener;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -32,7 +33,7 @@ public class CreateActivity extends AppCompatActivity {
     Spinner cr_stuga;
     Spinner cr_se;
     Spinner cr_mod;
-    TextView cr_datum;
+    EditText cr_datum;
     Button cr_create;
 
     // das Zeugs aus Find
@@ -42,6 +43,7 @@ public class CreateActivity extends AppCompatActivity {
     TextView tvStudiengang;
     TextView tvSemester;
     TextView tvModul;
+    TextView tvTag;
 
     String selectedStudiengang;
     String selectedSemester;
@@ -71,6 +73,14 @@ public class CreateActivity extends AppCompatActivity {
         tvStudiengang=findViewById(R.id.cr_l_stuga);
         tvSemester=findViewById(R.id.cr_l_se);
         tvModul=findViewById(R.id.cr_l_mod);
+        tvTag=findViewById(R.id.cr_l_tag);
+        cr_stuga= findViewById(R.id.cr_stuga);
+        cr_se=findViewById(R.id.cr_se);
+        cr_mod=findViewById(R.id.cr_mod);
+        cr_datum= findViewById(R.id.cr_datum);
+
+        cr_create=(Button) findViewById(R.id.cr_create);
+
 
 
         DatabaseReference dbStudiengänge=mDataBase.child("Studiengänge");
@@ -88,7 +98,8 @@ public class CreateActivity extends AppCompatActivity {
         semesterSp.setVisibility(View.INVISIBLE);
         tvModul.setVisibility(View.INVISIBLE);
         modulSp.setVisibility(View.INVISIBLE);
-
+        tvTag.setVisibility(View.INVISIBLE);
+        cr_datum.setVisibility(View.INVISIBLE);
 
 
         dbStudiengänge.addChildEventListener(new ChildEventListener() {
@@ -183,6 +194,8 @@ public class CreateActivity extends AppCompatActivity {
                                 dbModul = mDataBase.child("Module").child(selectedStudiengang).child("Semester " + selectedSemester);
                                 tvModul.setVisibility(View.VISIBLE);
                                 modulSp.setVisibility(View.VISIBLE);
+                                tvTag.setVisibility(View.VISIBLE);
+                                cr_datum.setVisibility(View.VISIBLE);
 
 
                                 dbModul.addChildEventListener(new ChildEventListener() {
@@ -247,13 +260,7 @@ public class CreateActivity extends AppCompatActivity {
 
 
 
-        cr_stuga= findViewById(R.id.cr_stuga);
-        cr_se=findViewById(R.id.cr_se);
-        cr_mod=findViewById(R.id.cr_mod);
-        cr_datum= findViewById(R.id.cr_datum);
-        cr_create=(Button) findViewById(R.id.cr_create);
 
-        cr_datum.setVisibility(View.VISIBLE);
 
         cr_create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -261,9 +268,9 @@ public class CreateActivity extends AppCompatActivity {
                 DatabaseReference mRefChild = mRef.child("meet");
 
                 Meetings m = new Meetings();
-                m.setDatum((String) cr_datum.getText());
+                m.setDatum(cr_datum.getText().toString());
                 m.setModul((String) cr_mod.getSelectedItem());
-                m.setSemester((Long) cr_se.getSelectedItem());
+                m.setSemester( Long.parseLong(cr_se.getSelectedItem().toString()));
                 m.setStudiengang((String) cr_stuga.getSelectedItem());
                 m.setStudg_modul((String) cr_stuga.getSelectedItem() + "_" + cr_mod.getSelectedItem());
                 mRefChild.push().setValue(m);
