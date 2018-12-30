@@ -1,7 +1,9 @@
 package erkewesa.org.findnlearn;
 
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -35,6 +37,7 @@ public class CreateActivity extends AppCompatActivity {
     Spinner cr_mod;
     EditText cr_datum;
     Button cr_create;
+    TextView cr_popup;
 
     // das Zeugs aus Find
     Spinner studgSp;
@@ -80,6 +83,8 @@ public class CreateActivity extends AppCompatActivity {
         cr_datum= findViewById(R.id.cr_datum);
 
         cr_create=(Button) findViewById(R.id.cr_create);
+        cr_popup = findViewById(R.id.cr_popup);
+
 
 
 
@@ -100,6 +105,7 @@ public class CreateActivity extends AppCompatActivity {
         modulSp.setVisibility(View.INVISIBLE);
         tvTag.setVisibility(View.INVISIBLE);
         cr_datum.setVisibility(View.INVISIBLE);
+        cr_popup.setVisibility(View.INVISIBLE);
 
 
         dbStudiengänge.addChildEventListener(new ChildEventListener() {
@@ -273,10 +279,27 @@ public class CreateActivity extends AppCompatActivity {
                 m.setSemester( Long.parseLong(cr_se.getSelectedItem().toString()));
                 m.setStudiengang((String) cr_stuga.getSelectedItem());
                 m.setStudg_modul((String) cr_stuga.getSelectedItem() + "_" + cr_mod.getSelectedItem());
+
                 mRefChild.push().setValue(m);
+                cr_popup.setVisibility(View.VISIBLE);
+
+//                if ((mRefChild.push().setValue(m)) != null) {
+//                    cr_popup.setVisibility(View.VISIBLE);
+////                    Popper pop = new Popper();
+////                    pop.confirmWithPopup("failed");
+//                }
+
+
+
+
 
             }
         });
-        //bis hier
+
+
+
+
+
+
     }
 }
