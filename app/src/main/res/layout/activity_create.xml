@@ -51,12 +51,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="276dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="8dp"
         android:text="Tag"
-        app:layout_constraintBottom_toTopOf="@+id/studgSp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/cr_mod" />
 
     <Spinner
         android:id="@+id/cr_se"
@@ -112,31 +110,34 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="207dp"
         android:layout_marginLeft="207dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginBottom="156dp"
+        android:layout_marginBottom="100dp"
         android:text="CREATE MEET"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cr_datum" />
 
     <EditText
         android:id="@+id/cr_datum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginRight="70dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="108dp"
+        android:layout_marginRight="108dp"
+        android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="DD.Monat.YYYY"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/cr_create"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/cr_l_tag"
-        app:layout_constraintTop_toBottomOf="@+id/cr_mod" />
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/cr_l_tag"
+        app:layout_constraintTop_toBottomOf="@+id/cr_l_tag"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
