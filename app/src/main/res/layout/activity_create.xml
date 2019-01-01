@@ -110,7 +110,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="207dp"
         android:layout_marginLeft="207dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
         android:layout_marginBottom="100dp"
@@ -118,27 +117,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cr_datum" />
-
-    <EditText
-        android:id="@+id/cr_datum"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="108dp"
-        android:layout_marginRight="108dp"
-        android:layout_marginBottom="8dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/cr_l_tag"
-        app:layout_constraintTop_toBottomOf="@+id/cr_l_tag"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/cr_popup"
@@ -158,5 +137,21 @@
         app:layout_constraintTop_toBottomOf="@+id/cr_create"
         app:layout_constraintVertical_bias="0.0"
         tools:text="Meet successfully created!" />
+
+    <TextView
+        android:id="@+id/cr_tv_date"
+        android:layout_width="220dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="82dp"
+        android:layout_marginLeft="82dp"
+        android:layout_marginTop="21dp"
+        android:layout_marginEnd="82dp"
+        android:layout_marginRight="82dp"
+        android:layout_marginBottom="34dp"
+        android:text="select a date here"
+        app:layout_constraintBottom_toTopOf="@+id/cr_create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cr_l_tag" />
 
 </android.support.constraint.ConstraintLayout>

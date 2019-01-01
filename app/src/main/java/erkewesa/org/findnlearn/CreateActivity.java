@@ -1,6 +1,10 @@
 package erkewesa.org.findnlearn;
 
+import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.nfc.Tag;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -8,9 +12,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.text.method.DateTimeKeyListener;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,15 +33,20 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
+
+import java.util.Calendar;
 import java.util.Date;
 
 public class CreateActivity extends AppCompatActivity {
     private DatabaseReference mRef;
-
+    private static final String TAG = "CreateActivity";
     Spinner cr_stuga;
     Spinner cr_se;
     Spinner cr_mod;
-    EditText cr_datum;
+    // Dec new DatePicker
+    private TextView cr_date;
+    private DatePickerDialog.OnDateSetListener cr_date_list;
+    // end of Dec
     Button cr_create;
     TextView cr_popup;
 
@@ -80,14 +91,39 @@ public class CreateActivity extends AppCompatActivity {
         cr_stuga= findViewById(R.id.cr_stuga);
         cr_se=findViewById(R.id.cr_se);
         cr_mod=findViewById(R.id.cr_mod);
-        cr_datum= findViewById(R.id.cr_datum);
-
+        // new Date init
+        cr_date = findViewById(R.id.cr_tv_date);
+        // new Date end
         cr_create=(Button) findViewById(R.id.cr_create);
         cr_popup = findViewById(R.id.cr_popup);
+        // date pickers logic
+        cr_date.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view ) {
+                Calendar cal = Calendar.getInstance();
+                int year = cal.get(Calendar.YEAR);
+                int month = cal.get(Calendar.MONTH);
+                int day = cal.get(Calendar.DAY_OF_MONTH);
 
+                DatePickerDialog dialog = new DatePickerDialog(
+                        CreateActivity.this,
+                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                        cr_date_list,
+                        year, month, day);
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                dialog.show();
+            }
+        });
 
-
-
+        cr_date_list = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datepicker, int year, int month, int day) {
+                month = month +1;
+                Log.d(TAG, "onDateSet: date: " + year + "/" + month + "/" + day);
+                String date = month + "/" + day + "/" + year;
+                cr_date.setText(date);
+            }
+        };
+        // end of date pickers logic
         DatabaseReference dbStudiengänge=mDataBase.child("Studiengänge");
         final ArrayAdapter<String> studAdapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item, arrStudiengaenge);
         final ArrayAdapter<String> semAdapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item, arrSemester);
@@ -104,8 +140,9 @@ public class CreateActivity extends AppCompatActivity {
         tvModul.setVisibility(View.INVISIBLE);
         modulSp.setVisibility(View.INVISIBLE);
         tvTag.setVisibility(View.INVISIBLE);
-        cr_datum.setVisibility(View.INVISIBLE);
+        cr_date.setVisibility(View.INVISIBLE);
         cr_popup.setVisibility(View.INVISIBLE);
+        cr_create.setVisibility(View.INVISIBLE);
 
 
         dbStudiengänge.addChildEventListener(new ChildEventListener() {
@@ -151,12 +188,16 @@ public class CreateActivity extends AppCompatActivity {
                     dbSemester= mDataBase.child("Semester").child(selectedStudiengang);
                     tvSemester.setVisibility(View.VISIBLE);
                     semesterSp.setVisibility(View.VISIBLE);
+                    cr_date.setVisibility(View.VISIBLE);
+                    cr_create.setVisibility(View.VISIBLE);
                 }catch(DatabaseException ex){
                     dbSemester = mDataBase.child("Semester").child("Wahl");
                     tvSemester.setVisibility(View.INVISIBLE);
                     semesterSp.setVisibility(View.INVISIBLE);
                     tvModul.setVisibility(View.INVISIBLE);
                     modulSp.setVisibility(View.INVISIBLE);
+                    cr_date.setVisibility(View.INVISIBLE);
+                    cr_create.setVisibility(View.INVISIBLE);
                 }
 
                 dbSemester.addValueEventListener(new ValueEventListener() {
@@ -201,8 +242,8 @@ public class CreateActivity extends AppCompatActivity {
                                 tvModul.setVisibility(View.VISIBLE);
                                 modulSp.setVisibility(View.VISIBLE);
                                 tvTag.setVisibility(View.VISIBLE);
-                                cr_datum.setVisibility(View.VISIBLE);
-
+                                cr_date.setVisibility(View.VISIBLE);
+                                cr_create.setVisibility(View.VISIBLE);
 
                                 dbModul.addChildEventListener(new ChildEventListener() {
                                     @Override
@@ -274,7 +315,7 @@ public class CreateActivity extends AppCompatActivity {
                 DatabaseReference mRefChild = mRef.child("meet");
 
                 Meetings m = new Meetings();
-                m.setDatum(cr_datum.getText().toString());
+                m.setDatum(cr_date.getText().toString());
                 m.setModul((String) cr_mod.getSelectedItem());
                 m.setSemester( Long.parseLong(cr_se.getSelectedItem().toString()));
                 m.setStudiengang((String) cr_stuga.getSelectedItem());
@@ -285,8 +326,8 @@ public class CreateActivity extends AppCompatActivity {
 
 //                if ((mRefChild.push().setValue(m)) != null) {
 //                    cr_popup.setVisibility(View.VISIBLE);
-////                    Popper pop = new Popper();
-////                    pop.confirmWithPopup("failed");
+//                   Popper pop = new Popper();
+//                   pop.confirmWithPopup("failed");
 //                }
 
 
