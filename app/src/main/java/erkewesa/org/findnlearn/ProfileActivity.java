@@ -20,6 +20,8 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         //abfragen ob User schon in DB ist: Lokale DB vergleichen mit Firebase jo
+        // Verbindung zur loc DB aufbauen
+
 
         // wenn das nicht der Fall ist, dann das...
         pro_name = findViewById(R.id.pro_name).toString();
