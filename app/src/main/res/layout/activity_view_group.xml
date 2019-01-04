@@ -6,4 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ViewGroupActivity">
 
+    <TextView
+        android:id="@+id/calendarTitleTxV3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="28dp"
+        android:fontFamily="serif-monospace"
+        android:text="GROUPS"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

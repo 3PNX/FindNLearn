@@ -7,6 +7,20 @@
     tools:context=".CreateActivity">
 
     <TextView
+        android:id="@+id/calendarTitleTxV2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="serif-monospace"
+        android:text="CREATE"
+        android:textColor="@color/colorAccent"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/cr_l_se"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

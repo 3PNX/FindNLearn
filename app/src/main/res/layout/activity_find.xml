@@ -48,6 +48,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="36dp"
+        android:fontFamily="serif-monospace"
         android:text="@string/FindButton"
         android:textColor="@color/colorAccent"
         android:textSize="30sp"
