@@ -1,6 +1,9 @@
 package erkewesa.org.findnlearn;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.service.autofill.FillEventHistory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,17 +13,40 @@ import android.widget.TextView;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import erkewesa.org.findnlearn.data.FindNLearnDbHelper;
+import erkewesa.org.findnlearn.data.StudiengangContract;
+
 public class MainActivity extends AppCompatActivity {
+
+   private FindNLearnDbHelper myDbHelper;
+   private SQLiteDatabase db;
+   private String user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        myDbHelper=new FindNLearnDbHelper(this);
+        db=myDbHelper.getReadableDatabase();
+
+
+        Cursor cursor = db.rawQuery("SELECT "+StudiengangContract.StudiengangEntry.COLUMN_USERNAME+" FROM "+StudiengangContract.StudiengangEntry.TABLE_NAME,null);
+        try{
+            while(cursor.moveToNext()){
+                user=cursor.getString(0);
+            }
+        }catch (Exception e){
+            user=null;
+        } finally {
+            cursor.close();
+        }
+
+        if(user==null){
+            Intent createUserIntent=new Intent(getApplicationContext(),CreateUserActivity.class);
+            startActivity(createUserIntent);
+        }
+
         setContentView(R.layout.activity_main);
-
-
-
-
-
 
         //Buttons / ClickListener
         Button findBtn=findViewById(R.id.findBtn);

@@ -37,6 +37,8 @@ import android.widget.ArrayAdapter;
 import java.util.Calendar;
 import java.util.Date;
 
+import erkewesa.org.findnlearn.data.FindNLearnDbHelper;
+
 public class CreateActivity extends AppCompatActivity {
     private DatabaseReference mRef;
     private static final String TAG = "CreateActivity";
@@ -69,6 +71,8 @@ public class CreateActivity extends AppCompatActivity {
     private ArrayList<String> arrStudiengaenge =new ArrayList<String>();
     private ArrayList<String> arrSemester=new ArrayList<String>();
     private ArrayList<String> arrModule=new ArrayList<String>();
+
+    private FindNLearnDbHelper myDbHelper;
 
     // bis hier
 
