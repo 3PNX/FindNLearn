@@ -10,4 +10,5 @@
     <string name="SemesterTxV">Semester</string>
     <string name="ModulTxV">Modul</string>
     <string name="SearchButton">Search</string>
+    <string name="GreetingMsg"> Herzlich Wilkommen bei Find n\' Learn! \n Sag uns doch bitte wie du heißt! </string>
 </resources>
