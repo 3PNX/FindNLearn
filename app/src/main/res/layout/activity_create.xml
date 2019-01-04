@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_light_pressed"
     tools:context=".CreateActivity">
 
     <TextView
@@ -26,9 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="128dp"
         android:layout_marginBottom="10dp"
         android:text="Semester"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/studgSp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -39,9 +41,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="72dp"
         android:layout_marginBottom="10dp"
         android:text="@string/StudiengangTxV"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/studgSp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -52,9 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="192dp"
         android:layout_marginBottom="10dp"
         android:text="Modul"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/studgSp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,8 +69,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginLeft="60dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="12dp"
         android:text="Tag"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cr_mod" />
 
@@ -76,13 +81,15 @@
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="156dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="45dp"
+        android:background="@color/colorPrimary"
+        android:popupBackground="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/semesterSp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -92,13 +99,15 @@
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="212dp"
+        android:layout_marginTop="220dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="45dp"
+        android:background="@color/colorPrimary"
+        android:popupBackground="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/semesterSp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,10 +117,12 @@
         android:layout_height="28dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="92dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="45dp"
+        android:background="@color/colorPrimary"
+        android:popupBackground="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/semesterSp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -126,11 +137,13 @@
         android:layout_marginLeft="207dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="84dp"
+        android:background="@color/colorPrimary"
         android:text="CREATE MEET"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.083"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -144,12 +157,13 @@
         android:layout_marginRight="158dp"
         android:layout_marginBottom="45dp"
         android:text="Meet successfully created!"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.378"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cr_create"
-        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_bias="0.064"
         tools:text="Meet successfully created!" />
 
     <TextView
@@ -163,9 +177,12 @@
         android:layout_marginRight="82dp"
         android:layout_marginBottom="34dp"
         android:text="select a date here"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/cr_create"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cr_l_tag" />
+        app:layout_constraintTop_toBottomOf="@+id/cr_l_tag"
+        app:layout_constraintVertical_bias="0.25" />
 
 </android.support.constraint.ConstraintLayout>
