@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/common_google_signin_btn_text_light_pressed"
     tools:context=".FindActivity">
 
     <Spinner
@@ -15,6 +16,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="45dp"
+        android:background="@color/colorPrimary"
+        android:popupBackground="@color/colorPrimary"
         app:layout_constraintBottom_toTopOf="@+id/semesterSp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
@@ -30,6 +33,8 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@color/colorPrimary"
+        android:popupBackground="@color/colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
@@ -44,6 +49,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="36dp"
         android:text="@string/FindButton"
+        android:textColor="@color/colorAccent"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,6 +63,8 @@
         android:layout_marginTop="45dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@color/colorPrimary"
+        android:popupBackground="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.504"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +78,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginBottom="10dp"
         android:text="@string/StudiengangTxV"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/studgSp"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -81,6 +90,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginBottom="10dp"
         android:text="@string/SemesterTxV"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/semesterSp"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -92,6 +102,7 @@
         android:layout_marginLeft="60dp"
         android:layout_marginBottom="8dp"
         android:text="@string/ModulTxV"
+        android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/modulSp"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -102,7 +113,9 @@
         android:layout_marginTop="1dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
+        android:background="@color/colorPrimary"
         android:text="@string/SearchButton"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/modulSp" />
 
