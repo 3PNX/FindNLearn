@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
    private FindNLearnDbHelper myDbHelper;
    private SQLiteDatabase db;
    private String user;
+   private String rndmKey;
+   private TextView tvWelcome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         db=myDbHelper.getReadableDatabase();
 
 
-        Cursor cursor = db.rawQuery("SELECT "+StudiengangContract.StudiengangEntry.COLUMN_USERNAME+" FROM "+StudiengangContract.StudiengangEntry.TABLE_NAME,null);
+
+        Cursor cursor = db.rawQuery("SELECT "+StudiengangContract.StudiengangEntry.COLUMN_USERNAME+","+StudiengangContract.StudiengangEntry.COLUMN_RANDOMKEY+" FROM "+StudiengangContract.StudiengangEntry.TABLE_NAME,null);
         try{
             while(cursor.moveToNext()){
                 user=cursor.getString(0);
+                rndmKey=cursor.getString(1);
             }
         }catch (Exception e){
             user=null;
@@ -47,6 +51,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_main);
+
+        tvWelcome=findViewById(R.id.tvWelcomeMessage);
+        tvWelcome.setText("Herzlich Willkommen "+user+"! ");
 
         //Buttons / ClickListener
         Button findBtn=findViewById(R.id.findBtn);
@@ -72,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent viewGroupActivityIntent=new Intent(getApplicationContext(),ViewGroupActivity.class);
+                viewGroupActivityIntent.putExtra("RandomKey",rndmKey);
+                viewGroupActivityIntent.putExtra("username",user);
                 startActivity(viewGroupActivityIntent);
             }
         });
@@ -90,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent createActivityIntent=new Intent(getApplicationContext(),CreateActivity.class);
+                createActivityIntent.putExtra("RandomKey",rndmKey);
+                createActivityIntent.putExtra("username",user);
                 startActivity(createActivityIntent);
             }
         });
@@ -97,4 +108,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+
+
+
+
 }

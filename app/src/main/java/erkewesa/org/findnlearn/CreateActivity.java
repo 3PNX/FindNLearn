@@ -64,6 +64,8 @@ public class CreateActivity extends AppCompatActivity {
 
     String selectedStudiengang;
     String selectedSemester;
+    private String rndmKey;
+    private String username;
 
     int anzSemester;
     private DatabaseReference mDataBase;
@@ -318,6 +320,8 @@ public class CreateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DatabaseReference mRefChild = mRef.child("meet");
+                rndmKey=getIntent().getStringExtra("RandomKey");
+                username=getIntent().getStringExtra("username");
 
                 Meetings m = new Meetings();
                 m.setDatum(cr_date.getText().toString());
@@ -326,7 +330,12 @@ public class CreateActivity extends AppCompatActivity {
                 m.setStudiengang((String) cr_stuga.getSelectedItem());
                 m.setStudg_modul((String) cr_stuga.getSelectedItem() + "_" + cr_mod.getSelectedItem());
 
-                mRefChild.push().setValue(m);
+                DatabaseReference mRefMeeting = mRefChild.push();
+                mRefMeeting.setValue(m);
+                DatabaseReference mRefTeilnehmer = mRefMeeting.child("Teilnehmer").child(rndmKey);
+                mRefTeilnehmer.child("User").setValue(username);
+
+
                 Toast.makeText(CreateActivity.this, "succeeded!", Toast.LENGTH_LONG).show();
 //                cr_popup.setVisibility(View.VISIBLE);
 
