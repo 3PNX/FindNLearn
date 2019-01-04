@@ -33,6 +33,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -322,7 +323,8 @@ public class CreateActivity extends AppCompatActivity {
                 m.setStudg_modul((String) cr_stuga.getSelectedItem() + "_" + cr_mod.getSelectedItem());
 
                 mRefChild.push().setValue(m);
-                cr_popup.setVisibility(View.VISIBLE);
+                Toast.makeText(CreateActivity.this, "succeeded!", Toast.LENGTH_LONG).show();
+//                cr_popup.setVisibility(View.VISIBLE);
 
 //                if ((mRefChild.push().setValue(m)) != null) {
 //                    cr_popup.setVisibility(View.VISIBLE);
