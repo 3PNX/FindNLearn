@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context=".MainActivity">
-
 
     <Button
         android:id="@+id/findBtn"
@@ -14,8 +14,10 @@
         android:layout_marginStart="38dp"
         android:layout_marginLeft="38dp"
         android:layout_marginTop="56dp"
+        android:background="@android:drawable/alert_dark_frame"
         android:drawableTop="@android:drawable/ic_search_category_default"
         android:text="@string/FindButton"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,11 +29,13 @@
         android:layout_height="118dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="56dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:background="@android:drawable/alert_dark_frame"
         android:drawableTop="@android:drawable/ic_menu_my_calendar"
         android:text="@string/CalendarButton"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/findBtn"
@@ -45,13 +49,15 @@
         android:layout_marginLeft="36dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="8dp"
+        android:background="@android:drawable/alert_dark_frame"
         android:drawableTop="@android:drawable/ic_menu_view"
         android:text="@string/ViewGroupButton"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/findBtn"
-        app:layout_constraintVertical_bias="0.234" />
+        app:layout_constraintVertical_bias="0.223" />
 
     <Button
         android:id="@+id/createBtn"
@@ -63,30 +69,35 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@android:drawable/alert_dark_frame"
         android:drawableTop="@android:drawable/ic_menu_edit"
         android:text="@string/CreateButton"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.519"
         app:layout_constraintStart_toEndOf="@+id/viewGroupBtn"
         app:layout_constraintTop_toBottomOf="@+id/calendarBtn"
-        app:layout_constraintVertical_bias="0.238" />
+        app:layout_constraintVertical_bias="0.223" />
 
     <Button
         android:id="@+id/profileBtn"
         android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@android:drawable/alert_dark_frame"
         android:drawableTop="@android:drawable/ic_menu_myplaces"
         android:text="@string/ProfileButton"
+        android:textColor="@color/colorAccent"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewGroupBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/viewGroupBtn"
+        app:layout_constraintVertical_bias="0.66" />
 
     <TextView
         android:id="@+id/homeTxtView"
@@ -98,14 +109,16 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        android:text="@string/HomeTV"
+        android:fontFamily="serif-monospace"
+        android:text="panel of experts"
         android:textColor="@color/colorAccent"
-        android:textSize="40sp"
+        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/createBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarBtn" />
+
 
 
 
