@@ -50,7 +50,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="2dp"
-        android:text="Please type in ur Name and course so that u participate @string/app_name meets"
+        android:text="Please type in ur Name and course so that u participate in meets"
         app:layout_constraintBottom_toTopOf="@+id/pro_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
