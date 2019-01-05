@@ -1,6 +1,7 @@
 package erkewesa.org.findnlearn;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +24,7 @@ public class ViewGroupActivity extends AppCompatActivity {
     private String username;
     ListView lvMyGroups;
     private ArrayList<Meetings> mResults=new ArrayList<Meetings>();
+    private ArrayList<String> mMeets=new ArrayList();
 
     private DatabaseReference mDatabase;
     @Override
@@ -52,15 +55,16 @@ public class ViewGroupActivity extends AppCompatActivity {
         };
         lvMyGroups.setAdapter(arrayAdapter);
 
-        mDatabase=FirebaseDatabase.getInstance().getReference().child("meet");
+        mDatabase=FirebaseDatabase.getInstance().getReference().child("Kursteilnehmer");
 
-        mDatabase.orderByValue().equalTo(rndmKey).addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.orderByChild("Teilnehmer").equalTo(rndmKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue()!=null) {
                     for(DataSnapshot adSnapshot:dataSnapshot.getChildren()){
-                        mResults.add(adSnapshot.getValue(Meetings.class));
-                        arrayAdapter.notifyDataSetChanged();
+
+                        mMeets.add(adSnapshot.child("Meet").getValue(String.class));
+
                     }
                 } else{
                     ArrayList<String> keineEintraegeArr = new ArrayList<String>();
@@ -69,6 +73,29 @@ public class ViewGroupActivity extends AppCompatActivity {
                     keineEintraegeArr.add("Keine Einträge gefunden...");
                     keineEintraegeAdapter.notifyDataSetChanged();
                 }
+
+                if(mMeets.size()!=0) {
+                    for (int i = 0; i < mMeets.size(); i++) {
+                        String meeting = mMeets.get(i);
+                        DatabaseReference dbMeets = FirebaseDatabase.getInstance().getReference().child("meet").child(meeting);
+
+                        dbMeets.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                mResults.add(dataSnapshot.getValue(Meetings.class));
+                                arrayAdapter.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+
+
+                    }
+                }
+
             }
 
             @Override

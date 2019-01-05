@@ -87,7 +87,6 @@ public class CreateActivity extends AppCompatActivity {
 
         //find jo
         mDataBase=FirebaseDatabase.getInstance().getReference();
-        mDataBase=FirebaseDatabase.getInstance().getReference();
         studgSp= findViewById(R.id.cr_stuga);
         semesterSp=findViewById(R.id.cr_se);
         modulSp=findViewById(R.id.cr_mod);
@@ -126,7 +125,7 @@ public class CreateActivity extends AppCompatActivity {
             public void onDateSet(DatePicker datepicker, int year, int month, int day) {
                 month = month +1;
                 Log.d(TAG, "onDateSet: date: " + year + "/" + month + "/" + day);
-                String date = month + "/" + day + "/" + year;
+                String date = day + "/" + month + "/" + year;
                 cr_date.setText(date);
             }
         };
@@ -331,9 +330,12 @@ public class CreateActivity extends AppCompatActivity {
                 m.setStudg_modul((String) cr_stuga.getSelectedItem() + "_" + cr_mod.getSelectedItem());
 
                 DatabaseReference mRefMeeting = mRefChild.push();
+                String meetKey=mRefMeeting.getKey();
                 mRefMeeting.setValue(m);
-                DatabaseReference mRefTeilnehmer = mRefMeeting.child("Teilnehmer").child(rndmKey);
-                mRefTeilnehmer.child("User").setValue(username);
+
+                DatabaseReference mRefTeilnehmer = mDataBase.child("Kursteilnehmer").push();
+                mRefTeilnehmer.child("Meet").setValue(meetKey);
+                mRefTeilnehmer.child("Teilnehmer").setValue(rndmKey);
 
 
                 Toast.makeText(CreateActivity.this, "succeeded!", Toast.LENGTH_LONG).show();
