@@ -20,7 +20,7 @@
         android:background="@color/colorPrimary"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="type course here"
+        android:text="type course here KENO"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/pro_save"
         app:layout_constraintEnd_toEndOf="parent"
