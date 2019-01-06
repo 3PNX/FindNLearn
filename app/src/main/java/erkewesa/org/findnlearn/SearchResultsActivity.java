@@ -21,7 +21,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 public class SearchResultsActivity extends AppCompatActivity {
     ListView resultLv;
@@ -34,7 +39,7 @@ public class SearchResultsActivity extends AppCompatActivity {
     private ArrayList<Meetings> mResults=new ArrayList<Meetings>();
     private ArrayList<String> mKeys =new ArrayList();
 
-    private boolean checkedT;
+
 
     ArrayAdapter<Meetings> arrayAdapter;
 
@@ -76,6 +81,8 @@ public class SearchResultsActivity extends AppCompatActivity {
         username=getIntent().getStringExtra("username");
 
         String studg_modul=selectedStudiengang+"_"+selectedModul;
+
+
 
         mDatabase.orderByChild("studg_modul").equalTo(studg_modul).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -134,7 +141,11 @@ public class SearchResultsActivity extends AppCompatActivity {
         TextView txtSem;
         TextView txtMod;
         TextView txtTeilnehmer;
+        final TextView txtNextDate;
         final Button btnBeitreten;
+        final ArrayList<String> arrDates=new ArrayList<>();
+        final ArrayList<Date> arrDatum=new ArrayList<>();
+        final SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
 
 
         txtClose=myDialog.findViewById(R.id.txtClose);
@@ -142,12 +153,54 @@ public class SearchResultsActivity extends AppCompatActivity {
         txtSem=myDialog.findViewById(R.id.txtSem);
         txtMod=myDialog.findViewById(R.id.txtMod);
         txtTeilnehmer=myDialog.findViewById(R.id.txtTeilnehmer);
+        txtNextDate=myDialog.findViewById(R.id.txtNextDate);
         btnBeitreten=myDialog.findViewById(R.id.btnBeitreten);
 
         txtStudg.setText("Studiengang: "+m.getStudiengang());
         txtSem.setText("Semester: "+m.getSemester().toString());
         txtMod.setText("Modul: "+m.getModul());
         txtTeilnehmer.setText("Teilnehmer: "+m.getTeilnehmer().toString());
+
+        DatabaseReference mDates=FirebaseDatabase.getInstance().getReference().child("Termine");
+
+        mDates.orderByChild("Meet").equalTo(key).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null){
+                    for(DataSnapshot adSnapshot:dataSnapshot.getChildren()){
+                        arrDates.add(adSnapshot.child("Datum").getValue(String.class));
+                    }
+                        for(int i=0;i<arrDates.size();i++){
+
+                        try {
+                            Date strDate = sdf.parse(arrDates.get(i));
+
+                            arrDatum.add(strDate);
+                        }catch(ParseException e){
+
+                        }
+                        }
+
+                    Collections.sort(arrDatum);
+                    for(int i=0;i<arrDatum.size();i++){
+                        Date t=arrDatum.get(i);
+                        if(!new Date().after(t)){
+                            String fmtDatum=sdf.format(t);
+                            txtNextDate.setText("Nächstes Treffen: "+fmtDatum);
+                            break;
+                        } else{
+                            txtNextDate.setText("Nächstes Treffen: Noch nicht festgelegt");
+                        }
+                    }
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
 
 
@@ -229,10 +282,6 @@ public class SearchResultsActivity extends AppCompatActivity {
                 myDialog.dismiss();
             }
         });
-        if(checkedT){
-            btnBeitreten.setText("Bereits Mitglied");
-            btnBeitreten.setEnabled(false);
-        };
         myDialog.show();
 
     }

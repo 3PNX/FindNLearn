@@ -323,7 +323,6 @@ public class CreateActivity extends AppCompatActivity {
                 username=getIntent().getStringExtra("username");
 
                 Meetings m = new Meetings();
-                m.setDatum(cr_date.getText().toString());
                 m.setModul((String) cr_mod.getSelectedItem());
                 m.setTeilnehmer(Long.parseLong("1"));
                 m.setSemester( Long.parseLong(cr_se.getSelectedItem().toString()));
@@ -334,10 +333,15 @@ public class CreateActivity extends AppCompatActivity {
                 String meetKey=mRefMeeting.getKey();
                 mRefMeeting.setValue(m);
 
+               DatabaseReference mRefTermine= mDataBase.child("Termine").push();
+                mRefTermine.child("Meet").setValue(meetKey);
+                mRefTermine.child("Datum").setValue(cr_date.getText().toString());
 
                 DatabaseReference mRefTeilnehmer = mDataBase.child("Kursteilnehmer").push();
                 mRefTeilnehmer.child("Meet").setValue(meetKey);
                 mRefTeilnehmer.child("Teilnehmer").setValue(rndmKey);
+
+
 
 
                 Toast.makeText(CreateActivity.this, "succeeded!", Toast.LENGTH_LONG).show();

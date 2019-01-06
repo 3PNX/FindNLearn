@@ -22,7 +22,8 @@
         <activity android:name=".CreateActivity" />
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SearchResultsActivity" />
-        <activity android:name=".CreateUserActivity"></activity>
+        <activity android:name=".CreateUserActivity" />
+        <activity android:name=".GroupOverviewActivity"></activity>
     </application>
 
 </manifest>
