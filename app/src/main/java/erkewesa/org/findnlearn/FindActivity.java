@@ -37,6 +37,8 @@ public class FindActivity extends AppCompatActivity{
     TextView tvStudiengang;
     TextView tvSemester;
     TextView tvModul;
+    String rndmKey;
+    String username;
 
     String selectedStudiengang;
     String selectedSemester;
@@ -64,6 +66,9 @@ public class FindActivity extends AppCompatActivity{
         tvModul=findViewById(R.id.modulTxV);
 
         searchBtn.setEnabled(false);
+
+        rndmKey=getIntent().getStringExtra("RandomKey");
+        username=getIntent().getStringExtra("username");
 
 
         DatabaseReference dbStudiengänge=mDataBase.child("Studiengänge");
@@ -240,6 +245,8 @@ public class FindActivity extends AppCompatActivity{
                 Intent searchResultsActivityIntent=new Intent(getApplicationContext(),SearchResultsActivity.class);
                 searchResultsActivityIntent.putExtra("Studiengang",studgSp.getSelectedItem().toString());
                 searchResultsActivityIntent.putExtra("Modul",modulSp.getSelectedItem().toString());
+                searchResultsActivityIntent.putExtra("RandomKey",rndmKey);
+                searchResultsActivityIntent.putExtra("username",username);
                 startActivity(searchResultsActivityIntent);
             }
         });

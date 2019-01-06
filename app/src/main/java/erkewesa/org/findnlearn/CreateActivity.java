@@ -325,6 +325,7 @@ public class CreateActivity extends AppCompatActivity {
                 Meetings m = new Meetings();
                 m.setDatum(cr_date.getText().toString());
                 m.setModul((String) cr_mod.getSelectedItem());
+                m.setTeilnehmer(Long.parseLong("1"));
                 m.setSemester( Long.parseLong(cr_se.getSelectedItem().toString()));
                 m.setStudiengang((String) cr_stuga.getSelectedItem());
                 m.setStudg_modul((String) cr_stuga.getSelectedItem() + "_" + cr_mod.getSelectedItem());
@@ -332,6 +333,7 @@ public class CreateActivity extends AppCompatActivity {
                 DatabaseReference mRefMeeting = mRefChild.push();
                 String meetKey=mRefMeeting.getKey();
                 mRefMeeting.setValue(m);
+
 
                 DatabaseReference mRefTeilnehmer = mDataBase.child("Kursteilnehmer").push();
                 mRefTeilnehmer.child("Meet").setValue(meetKey);

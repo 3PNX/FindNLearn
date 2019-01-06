@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent findActivityIntent=new Intent(getApplicationContext(),FindActivity.class);
+                findActivityIntent.putExtra("RandomKey",rndmKey);
+                findActivityIntent.putExtra("username",user);
                 startActivity(findActivityIntent);
             }
         });

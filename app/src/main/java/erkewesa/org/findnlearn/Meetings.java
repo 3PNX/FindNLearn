@@ -4,17 +4,19 @@ import java.util.Date;
 
 public class Meetings {
 
-    private String Studiengang,Modul,studg_modul,Datum;;
-    private Long Semester;
+    private String Studiengang,Modul,studg_modul,Datum,key;
+    private Long Semester,Teilnehmer;
+
     public Meetings(){
 
     }
 
-    public Meetings(String studiengang, Long semester,String modul, String datum){
+    public Meetings(String studiengang, Long semester,String modul, String datum,Long teilnehmer){
         this.Studiengang =studiengang;
         this.Semester =semester;
         this.Modul =modul;
         this.Datum =datum;
+        this.Teilnehmer=teilnehmer;
     }
 
     public void setModul(String modul) {
@@ -55,6 +57,22 @@ public class Meetings {
 
     public String getStudg_modul() {
         return studg_modul;
+    }
+
+    public void setTeilnehmer(Long teilnehmer) {
+        Teilnehmer = teilnehmer;
+    }
+
+    public Long getTeilnehmer() {
+        return Teilnehmer;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String toString(){
