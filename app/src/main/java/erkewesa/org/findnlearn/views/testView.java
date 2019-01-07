@@ -11,7 +11,7 @@ import android.widget.TextView;
 import erkewesa.org.findnlearn.R;
 
 
-public class testView extends ConstraintLayout {
+public class testView extends LinearLayout {
     private TextView title,datum;
     private BoxInhalt s;
 
@@ -30,6 +30,11 @@ public class testView extends ConstraintLayout {
 
     public testView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init();
+    }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    public testView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super(context, attrs, defStyleAttr, defStyleRes);
         init();
     }
 

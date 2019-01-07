@@ -96,7 +96,7 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:text="zusagen" />
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@+id/header"
         android:layout_width="240dp"
         android:layout_height="73dp"
@@ -109,7 +109,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.036"
-        android:gravity="center">
+        android:gravity="center"> -->
 
         <TextView
             android:id="@+id/tvBoxTitel"
@@ -121,7 +121,7 @@
             tools:layout_editor_absoluteX="74dp"
             tools:layout_editor_absoluteY="16dp"
             />
-    </LinearLayout>
+   <!-- </LinearLayout> -->
 
 
 </android.support.constraint.ConstraintLayout>
