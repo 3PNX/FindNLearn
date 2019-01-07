@@ -5,7 +5,8 @@
     android:layout_width="230sp"
     android:layout_height="200sp"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/border"
+    android:background="@color/colorPrimary"
+
     tools:layout_editor_absoluteY="81dp">
 
     <TextView
@@ -14,10 +15,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="48dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:text="TextView"
+        android:textSize="18sp"
+        android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -58,30 +61,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvBoxTitel" />
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginBottom="16dp"
-        android:background="@drawable/tick"
-
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="78dp"
-        android:layout_height="62dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="4dp"
-
-        android:background="@android:drawable/ic_delete"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <TextView
         android:id="@+id/tvBoxDatum"
         android:layout_width="wrap_content"
@@ -108,4 +87,43 @@
         android:text="TextView"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+    <Button
+        android:id="@+id/o_absagen"
+        android:layout_width="122dp"
+        android:layout_height="53dp"
+        android:background="@android:color/holo_red_light"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/o_zusagen"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="absagen" />
+
+    <Button
+        android:id="@+id/o_zusagen"
+        android:layout_width="114dp"
+        android:layout_height="53dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:background="@android:color/holo_green_light"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/o_absagen"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="zusagen" />
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="240dp"
+        android:layout_height="58dp"
+        android:layout_marginBottom="10dp"
+        android:background="#045047"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/tvBoxTitel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
