@@ -72,12 +72,13 @@
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="70dp"
-        android:layout_height="85dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginRight="28dp"
-        android:background="@drawable/del"
+        android:layout_width="78dp"
+        android:layout_height="62dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="4dp"
 
+        android:background="@android:drawable/ic_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
