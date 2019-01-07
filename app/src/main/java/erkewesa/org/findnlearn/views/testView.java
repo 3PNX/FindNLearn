@@ -179,6 +179,7 @@ public class testView extends LinearLayout {
     public void setZugesagt(){
         btnZusagen.setText("ZUGESAGT");
         btnZusagen.setBackgroundColor(colorZugesagt);
+        btnZusagen.setEnabled(false);
         btnAbsagen.setText("ABSAGEN");
         btnAbsagen.setBackgroundColor(colorNichtAbgesagt);
     }
@@ -188,6 +189,7 @@ public class testView extends LinearLayout {
         btnZusagen.setBackgroundColor(colorNichtZugesagt);
         btnAbsagen.setBackgroundColor(colorAbgesagt);
         btnAbsagen.setText("ABGESAGT");
+        btnAbsagen.setEnabled(false);
     }
 
 
