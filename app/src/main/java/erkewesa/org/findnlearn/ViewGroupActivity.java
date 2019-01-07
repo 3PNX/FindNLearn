@@ -112,6 +112,7 @@ public class ViewGroupActivity extends AppCompatActivity {
                 if(mMeets.size()!=0) {
                     Intent groupOverViewIntent = new Intent(getApplicationContext(), GroupOverviewActivity.class);
                     groupOverViewIntent.putExtra("meetKey", mMeets.get(position));
+                    groupOverViewIntent.putExtra("userKey",rndmKey);
                     startActivity(groupOverViewIntent);
                 }
             }

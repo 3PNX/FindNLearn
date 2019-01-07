@@ -17,7 +17,9 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
+        android:fontFamily="serif-monospace"
         android:text="TextView"
+        android:textColor="@color/colorAccent"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,8 +31,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
+        android:fontFamily="serif-monospace"
         android:layout_marginTop="12dp"
         android:text="Teilnehmer:"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvModul" />
 
@@ -39,25 +43,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:fontFamily="serif-monospace"
         android:layout_marginLeft="8dp"
         android:text="TextView"
+        android:textColor="@color/colorAccent"
         app:layout_constraintStart_toEndOf="@+id/tvTeilnehmerLabel"
         app:layout_constraintTop_toTopOf="@+id/tvTeilnehmerLabel" />
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginTop="110dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTeilnehmerLabel">
 
         <LinearLayout
             android:id="@+id/scrollLin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="vertical">
-
-
 
 
         </LinearLayout>

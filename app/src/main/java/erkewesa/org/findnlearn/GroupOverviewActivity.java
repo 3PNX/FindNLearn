@@ -4,10 +4,14 @@ import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import erkewesa.org.findnlearn.views.BoxInhalt;
 import erkewesa.org.findnlearn.views.testView;
 
@@ -25,22 +29,29 @@ import java.util.Collections;
 import java.util.Date;
 
 public class GroupOverviewActivity extends AppCompatActivity {
-    private String meetKey,modul,datum;
+    private String meetKey,modul,datum,userKey;
     private TextView tvTeilnehmer;
     private Long teilnehmer;
     private Meetings meeting;
     private ArrayList<String> arrDaten=new ArrayList<>();
     private ArrayList<String> arrVonZeit=new ArrayList<>();
     private ArrayList<String> arrBisZeit=new ArrayList<>();
+    private ArrayList<String> arrBeschreibung=new ArrayList<>();
+
+    private ArrayList<Termine> arrTermine=new ArrayList<>();
+
+    private ArrayList<String> arrTerminKeys=new ArrayList<>();
 
     private TextView tvModul;
     private TextView tvTeilnehmerzahl;
 
     private ArrayList<Date> arrDates=new ArrayList<>();
     private ArrayList<BoxInhalt> arrBox=new ArrayList<>();
+
     ArrayList<testView> arrTV=new ArrayList<>();
 
     final SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
+
 
 
 
@@ -57,7 +68,9 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
 
 
+
         meetKey=getIntent().getStringExtra("meetKey");
+        userKey=getIntent().getStringExtra("userKey");
 
         final LinearLayout scrollLin=findViewById(R.id.scrollLin);
 
@@ -85,38 +98,34 @@ public class GroupOverviewActivity extends AppCompatActivity {
         mTerminDb.orderByChild("Meet").equalTo(meetKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int j=0;
                 if(dataSnapshot.getValue()!=null){
                     for(DataSnapshot adSnapshot:dataSnapshot.getChildren()){
-                        arrDaten.add(adSnapshot.child("Datum").getValue(String.class));
+                        arrTerminKeys.add(adSnapshot.getKey());
+                        arrTermine.add(adSnapshot.getValue(Termine.class));
+                        arrTermine.get(j).setDate();
+                        j++;
+
+
                     }
 
-                    for(int i=0;i<arrDaten.size();i++){
+                    Collections.sort(arrTermine);
 
-                        try {
-                            Date strDate = sdf.parse(arrDaten.get(i));
-
-                            arrDates.add(strDate);
-                        }catch(ParseException e){
-
-                        }
-                    }
-
-                    Collections.sort(arrDates);
-                    for(int i=0;i<arrDates.size();i++){
-                        String temp=sdf.format(arrDates.get(i));
-                        arrDaten.set(i,temp);
-                    }
-
-                    for(int i=0;i<arrDaten.size();i++){
+                    for(int i=0;i<arrTermine.size();i++){
                         arrBox.add(new BoxInhalt());
-                        arrBox.get(i).setDatum(arrDaten.get(i));
+                        arrBox.get(i).setDatum(arrTermine.get(i).getDatum());
+                        arrBox.get(i).setBeschreibung(arrTermine.get(i).getBeschreibung());
+                        arrBox.get(i).setZeitVon(arrTermine.get(i).getZeit_von());
+                        arrBox.get(i).setZeitBis(arrTermine.get(i).getZeit_bis());
 
                         arrTV.add(new testView(getApplicationContext()));
-                        arrTV.get(i).setLayoutParams(new ConstraintLayout.LayoutParams(
-                                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                                ConstraintLayout.LayoutParams.MATCH_PARENT));
+                        LinearLayout.LayoutParams params=new LinearLayout.LayoutParams(
+                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                        params.gravity=Gravity.CENTER;
+                        arrTV.get(i).setLayoutParams(params);
 
-                        arrTV.get(i).setInhalt(arrBox.get(i));
+                        arrTV.get(i).setInhalt(arrBox.get(i),arrTerminKeys.get(i),userKey);
 
                         scrollLin.addView(arrTV.get(i));
 
