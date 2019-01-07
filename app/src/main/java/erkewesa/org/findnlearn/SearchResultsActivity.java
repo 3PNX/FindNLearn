@@ -119,10 +119,11 @@ public class SearchResultsActivity extends AppCompatActivity {
         resultLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Meetings m=mResults.get(position);
-                String key = mKeys.get(position);
-                showPopUp(m,key);
-
+                if(mResults.size()!=0) {
+                    Meetings m = mResults.get(position);
+                    String key = mKeys.get(position);
+                    showPopUp(m, key);
+                }
             }
         });
 

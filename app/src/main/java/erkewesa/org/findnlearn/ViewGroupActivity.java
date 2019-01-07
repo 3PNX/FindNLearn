@@ -1,11 +1,13 @@
 package erkewesa.org.findnlearn;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -101,6 +103,17 @@ public class ViewGroupActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        lvMyGroups.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(mMeets.size()!=0) {
+                    Intent groupOverViewIntent = new Intent(getApplicationContext(), GroupOverviewActivity.class);
+                    groupOverViewIntent.putExtra("meetKey", mMeets.get(position));
+                    startActivity(groupOverViewIntent);
+                }
             }
         });
 
