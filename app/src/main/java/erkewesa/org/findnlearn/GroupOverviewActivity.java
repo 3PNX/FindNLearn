@@ -1,11 +1,14 @@
 package erkewesa.org.findnlearn;
 
+import android.app.Dialog;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -22,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,6 +48,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
     private TextView tvModul;
     private TextView tvTeilnehmerzahl;
+    private Button btnAdd;
 
     private ArrayList<Date> arrDates=new ArrayList<>();
     private ArrayList<BoxInhalt> arrBox=new ArrayList<>();
@@ -65,12 +70,23 @@ public class GroupOverviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_overview);
         tvModul=findViewById(R.id.tvModul);
         tvTeilnehmerzahl=findViewById(R.id.tvTeilnehmerZahl);
+        btnAdd=findViewById(R.id.btnAdd);
+
 
 
 
 
         meetKey=getIntent().getStringExtra("meetKey");
         userKey=getIntent().getStringExtra("userKey");
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent CreateTerminIntent=new Intent(getApplicationContext(),CreateTerminActivity.class);
+                CreateTerminIntent.putExtra("meetKey",meetKey);
+                startActivity(CreateTerminIntent);
+            }
+        });
 
         final LinearLayout scrollLin=findViewById(R.id.scrollLin);
 
@@ -112,6 +128,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
                     Collections.sort(arrTermine);
 
                     for(int i=0;i<arrTermine.size();i++){
+                        final int k=i;
                         arrBox.add(new BoxInhalt());
                         arrBox.get(i).setDatum(arrTermine.get(i).getDatum());
                         arrBox.get(i).setBeschreibung(arrTermine.get(i).getBeschreibung());
@@ -125,7 +142,17 @@ public class GroupOverviewActivity extends AppCompatActivity {
                         params.gravity=Gravity.CENTER;
                         arrTV.get(i).setLayoutParams(params);
 
-                        arrTV.get(i).setInhalt(arrBox.get(i),arrTerminKeys.get(i),userKey);
+                        View.OnClickListener onClick=new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                int id=v.getId();
+                                if(id==R.id.tvClick) {
+                                    showPopUp(arrTerminKeys.get(k), arrTermine.get(k).getBeschreibung());
+                                }
+                            }
+                        };
+                        arrTV.get(i).setInhalt(arrBox.get(i),arrTerminKeys.get(i),userKey,onClick);
+
 
                         scrollLin.addView(arrTV.get(i));
 
@@ -141,6 +168,87 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
             }
         });
+
+
+
+
+    }
+
+
+
+
+    public void showPopUp(String termin, String beschreibung){
+
+        final Dialog myDialog=new Dialog(this);
+        myDialog.setContentView(R.layout.termin_popup);
+
+        DatabaseReference mDbZusagen=FirebaseDatabase.getInstance().getReference().child("Zusagen");
+        DatabaseReference mDbAbsagen=FirebaseDatabase.getInstance().getReference().child("Absagen");
+
+        TextView tvBeschreibung=myDialog.findViewById(R.id.tvPopUpBeschreibung);
+        final TextView tvZusagenZahl=myDialog.findViewById(R.id.tvPopUpZusagenZahl);
+        final TextView tvAbsagenZahl=myDialog.findViewById(R.id.tvPopUpAbsagenZahl);
+        final TextView txtClose=myDialog.findViewById(R.id.txtTerminClose);
+        final ArrayList<String> arrZusagen=new ArrayList<>();
+        final ArrayList<String> arrAbsagen=new ArrayList<>();
+
+
+
+        tvBeschreibung.setText(beschreibung); //boxinhalt beschreibung
+
+        mDbZusagen.orderByChild("Termin").equalTo(termin).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null){
+                    for(DataSnapshot adSnap:dataSnapshot.getChildren()){
+                        arrZusagen.add(adSnap.child("Termin").getValue(String.class));
+                    }
+
+                    int anzZusagen=arrZusagen.size();
+                    tvZusagenZahl.setText(""+anzZusagen);
+                } else{
+                    tvZusagenZahl.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        mDbAbsagen.orderByChild("Termin").equalTo(termin).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.getValue()!=null){
+                    for(DataSnapshot adSnap:dataSnapshot.getChildren()){
+                        arrAbsagen.add(adSnap.child("Termin").getValue(String.class));
+                    }
+
+                    int anzAbsagen=arrAbsagen.size();
+                    tvAbsagenZahl.setText(""+anzAbsagen);
+                } else{
+                    tvAbsagenZahl.setText("0");
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        txtClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myDialog.dismiss();
+            }
+        });
+        myDialog.show();
+
+
+
+
 
 
 

@@ -23,7 +23,8 @@
         <activity android:name=".ProfileActivity" />
         <activity android:name=".SearchResultsActivity" />
         <activity android:name=".CreateUserActivity" />
-        <activity android:name=".GroupOverviewActivity"></activity>
+        <activity android:name=".GroupOverviewActivity" />
+        <activity android:name=".CreateTerminActivity"></activity>
     </application>
 
 </manifest>
