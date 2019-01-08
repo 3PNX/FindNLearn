@@ -402,6 +402,7 @@ public class CreateActivity extends AppCompatActivity {
                 mRefTermine.child("Datum").setValue(cr_date.getText().toString());
                 mRefTermine.child("Zeit_bis").setValue(zeit_bis);
                 mRefTermine.child("Zeit_von").setValue(zeit_von);
+                mRefTermine.child("Beschreibung").setValue("Erstes Treffen");
 
                 DatabaseReference mRefTeilnehmer = mDataBase.child("Kursteilnehmer").push();
                 mRefTeilnehmer.child("Meet").setValue(meetKey);
