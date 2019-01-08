@@ -45,7 +45,6 @@ import erkewesa.org.findnlearn.data.FindNLearnDbHelper;
 public class CreateActivity extends AppCompatActivity {
     private DatabaseReference mRef;
     private static final String TAG = "CreateActivity";
-    private static final String HOUR = "CreateActivity";
     Spinner cr_stuga;
     Spinner cr_se;
     Spinner cr_mod;
