@@ -7,23 +7,102 @@
     tools:context=".CreateTerminActivity">
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/crt_tv_date"
+        android:layout_width="114dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="117dp"
+        android:layout_marginLeft="117dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="153dp"
+        android:layout_marginRight="153dp"
+        android:layout_marginBottom="6dp"
+        android:text="select a date here"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/crt_tv_timeb"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edTerminBeschreibung" />
+
+    <TextView
+        android:id="@+id/crt_tv_timeb"
+        android:layout_width="114dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginBottom="11dp"
+        android:text="select begin time"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/crt_save"
+        app:layout_constraintEnd_toStartOf="@+id/crt_save"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crt_tv_date" />
+
+    <TextView
+        android:id="@+id/crt_tv_timee"
+        android:layout_width="114dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="91dp"
+        android:layout_marginRight="91dp"
+        android:layout_marginBottom="3dp"
+        android:text="select end time"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/crt_save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/crt_tv_date"
+        app:layout_constraintTop_toBottomOf="@+id/crt_tv_date" />
+
+    <TextView
+        android:id="@+id/l_beschreibung"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
+        android:layout_marginTop="42dp"
+        android:layout_marginEnd="280dp"
+        android:layout_marginRight="280dp"
+        android:layout_marginBottom="8dp"
         android:text="Beschreibung:"
+        app:layout_constraintBottom_toTopOf="@+id/edTerminBeschreibung"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="300dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/edTerminBeschreibung"
-        android:layout_width="wrap_content"
+        android:layout_width="352dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="152dp"
+        android:layout_marginRight="152dp"
+        android:layout_marginBottom="29dp"
         android:ems="10"
         android:hint="Beschreibung"
         android:inputType="textPersonName"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintBottom_toTopOf="@+id/crt_tv_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/l_beschreibung"
+        app:layout_constraintTop_toBottomOf="@+id/l_beschreibung" />
+
+    <Button
+        android:id="@+id/crt_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="127dp"
+        android:layout_marginLeft="127dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="169dp"
+        android:layout_marginRight="169dp"
+        android:layout_marginBottom="187dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/crt_tv_timeb" />
 </android.support.constraint.ConstraintLayout>
