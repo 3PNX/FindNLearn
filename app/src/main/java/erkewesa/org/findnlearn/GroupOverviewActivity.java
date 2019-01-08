@@ -2,22 +2,14 @@ package erkewesa.org.findnlearn;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import erkewesa.org.findnlearn.views.BoxInhalt;
-import erkewesa.org.findnlearn.views.testView;
-
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -25,22 +17,18 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
+
+import erkewesa.org.findnlearn.views.BoxInhalt;
+import erkewesa.org.findnlearn.views.testView;
 
 public class GroupOverviewActivity extends AppCompatActivity {
-    private String meetKey,modul,datum,userKey;
-    private TextView tvTeilnehmer;
+    private String meetKey,modul,userKey;
+
     private Long teilnehmer;
     private Meetings meeting;
-    private ArrayList<String> arrDaten=new ArrayList<>();
-    private ArrayList<String> arrVonZeit=new ArrayList<>();
-    private ArrayList<String> arrBisZeit=new ArrayList<>();
-    private ArrayList<String> arrBeschreibung=new ArrayList<>();
+
 
     private ArrayList<Termine> arrTermine=new ArrayList<>();
 
@@ -50,12 +38,10 @@ public class GroupOverviewActivity extends AppCompatActivity {
     private TextView tvTeilnehmerzahl;
     private Button btnAdd;
 
-    private ArrayList<Date> arrDates=new ArrayList<>();
     private ArrayList<BoxInhalt> arrBox=new ArrayList<>();
 
     ArrayList<testView> arrTV=new ArrayList<>();
 
-    final SimpleDateFormat sdf=new SimpleDateFormat("dd/MM/yyyy");
 
 
 

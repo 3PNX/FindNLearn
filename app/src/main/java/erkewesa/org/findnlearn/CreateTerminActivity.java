@@ -26,15 +26,12 @@ public class CreateTerminActivity extends AppCompatActivity {
     private String meetKey, userKey;
     private EditText edBeschreibung;
     private DatabaseReference mDataBase;
-    private DatabaseReference mRef;
 
     private TextView crt_date;
     private TextView crt_timeb;
     private TextView crt_timee;
     private TextView crt_save;
     private DatePickerDialog.OnDateSetListener crt_date_list;
-    private TimePickerDialog.OnTimeSetListener crt_timeb_list;
-    private TimePickerDialog.OnTimeSetListener crt_timee_list;
     private TimePickerDialog crt_tp_timeb;
     private TimePickerDialog crt_tp_timee;
 

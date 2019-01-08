@@ -1,42 +1,30 @@
 package erkewesa.org.findnlearn;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.gms.common.data.DataBufferObserverSet;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.security.acl.Group;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 
 import erkewesa.org.findnlearn.data.FindNLearnDbHelper;
-import erkewesa.org.findnlearn.data.StudiengangContract;
 import erkewesa.org.findnlearn.views.BoxInhalt;
-import erkewesa.org.findnlearn.views.terminBoxView;
 import erkewesa.org.findnlearn.views.terminBoxView;
 
 public class CalendarActivity extends AppCompatActivity {
-
-    private CalendarView cv;
-    private FindNLearnDbHelper myDbHelper;
-    private SQLiteDatabase db;
     private String userKey;
     private ArrayList<String> mTerminKeys=new ArrayList();
     private ArrayList<Termine> arrTermine=new ArrayList();

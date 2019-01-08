@@ -2,26 +2,23 @@ package erkewesa.org.findnlearn;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.nfc.Tag;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.text.method.DateTimeKeyListener;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,15 +28,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import android.widget.ArrayAdapter;
-import android.widget.TimePicker;
-import android.widget.Toast;
-
 import java.util.Calendar;
-import java.util.Date;
 
 import erkewesa.org.findnlearn.data.FindNLearnDbHelper;
 
@@ -54,8 +44,6 @@ public class CreateActivity extends AppCompatActivity {
     private TextView cr_timeb;
     private TextView cr_timee;
     private DatePickerDialog.OnDateSetListener cr_date_list;
-    private TimePickerDialog.OnTimeSetListener cr_timeb_list;
-    private TimePickerDialog.OnTimeSetListener cr_timee_list;
     private TimePickerDialog cr_tp_timeb;
     private TimePickerDialog cr_tp_timee;
 
@@ -79,7 +67,7 @@ public class CreateActivity extends AppCompatActivity {
     String selectedStudiengang;
     String selectedSemester;
     private String rndmKey;
-    private String username;
+
 
     int anzSemester;
     private DatabaseReference mDataBase;
@@ -89,7 +77,7 @@ public class CreateActivity extends AppCompatActivity {
     private ArrayList<String> arrSemester=new ArrayList<String>();
     private ArrayList<String> arrModule=new ArrayList<String>();
 
-    private FindNLearnDbHelper myDbHelper;
+
 
     // bis hier
 
@@ -397,7 +385,6 @@ public class CreateActivity extends AppCompatActivity {
             public void onClick(View v) {
                 DatabaseReference mRefChild = mRef.child("meet");
                 rndmKey=getIntent().getStringExtra("RandomKey");
-                username=getIntent().getStringExtra("username");
 
                 Meetings m = new Meetings();
                 m.setModul((String) cr_mod.getSelectedItem());
