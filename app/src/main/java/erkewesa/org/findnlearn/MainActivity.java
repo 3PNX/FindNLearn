@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvWelcome=findViewById(R.id.tvWelcomeMessage);
-        tvWelcome.setText("Herzlich Willkommen "+user+"! ");
+        tvWelcome.setText("Huhu  "+user+"! ");
 
         //Buttons / ClickListener
         Button findBtn=findViewById(R.id.findBtn);
