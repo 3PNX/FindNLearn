@@ -54,7 +54,7 @@
         android:background="@android:drawable/alert_dark_frame"
         android:drawableTop="@android:drawable/ic_menu_view"
         android:fontFamily="serif-monospace"
-        android:text="@string/ViewGroupButton"
+        android:text="My\nGroups"
         android:textColor="@color/colorAccent"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
