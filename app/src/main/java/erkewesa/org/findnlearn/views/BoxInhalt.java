@@ -4,6 +4,8 @@ public class BoxInhalt {
     private String beschreibung;
     private String datum;
     private String zeitVon;
+    private String zeitBis;
+    private String modul;
 
     public String getZeitVon() {
         return zeitVon;
@@ -21,7 +23,7 @@ public class BoxInhalt {
         this.zeitBis = zeitBis;
     }
 
-    private String zeitBis;
+
     public BoxInhalt(){}
     public BoxInhalt(String beschreibung, String datum,String zeitVon,String zeitBis){
         this.beschreibung = beschreibung;
@@ -44,5 +46,13 @@ public class BoxInhalt {
 
     public void setDatum(String datum) {
         this.datum = datum;
+    }
+
+    public String getModul() {
+        return modul;
+    }
+
+    public void setModul(String modul) {
+        this.modul = modul;
     }
 }

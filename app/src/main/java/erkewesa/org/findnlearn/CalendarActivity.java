@@ -1,71 +1,152 @@
 package erkewesa.org.findnlearn;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
+import android.view.View;
 import android.widget.CalendarView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.google.android.gms.common.data.DataBufferObserverSet;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.security.acl.Group;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 
 import erkewesa.org.findnlearn.data.FindNLearnDbHelper;
 import erkewesa.org.findnlearn.data.StudiengangContract;
+import erkewesa.org.findnlearn.views.BoxInhalt;
+import erkewesa.org.findnlearn.views.terminBoxView;
+import erkewesa.org.findnlearn.views.terminBoxView;
 
 public class CalendarActivity extends AppCompatActivity {
 
     private CalendarView cv;
     private FindNLearnDbHelper myDbHelper;
     private SQLiteDatabase db;
-    private String rndmKey;
-    private DatabaseReference mDatabase;
-    private ArrayList<String> mMeets=new ArrayList();
-    private ArrayList<String> mDates=new ArrayList();
+    private String userKey;
+    private ArrayList<String> mTerminKeys=new ArrayList();
+    private ArrayList<Termine> arrTermine=new ArrayList();
+    private ArrayList<String> arrModulKeys=new ArrayList<>();
+    private ArrayList<String> arrMeetingsTxt=new ArrayList<>();
+    private ArrayList<BoxInhalt> arrBox=new ArrayList<>();
+    private ArrayList<terminBoxView> arrTV=new ArrayList<>();
+    private TextView tvAnzZusagen;
+    private DatabaseReference mDatabase=FirebaseDatabase.getInstance().getReference();
+    private int anzZusagen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+        tvAnzZusagen=findViewById(R.id.tvTeilnehmerZahl);
 
-        rndmKey=getIntent().getStringExtra("RandomKey");
-        cv = findViewById(R.id.calendarView);
+        userKey=getIntent().getStringExtra("user");
 
+        final LinearLayout scrollLin=findViewById(R.id.calendarscrollLin);
+        final DatabaseReference mTermineDb=mDatabase.child("Termine");
+        final DatabaseReference mModulDb=mDatabase.child("meet");
+        final DatabaseReference mZusagenDb=mDatabase.child("Zusagen");
 
-        mDatabase=FirebaseDatabase.getInstance().getReference().child("Kursteilnehmer");
-        mDatabase.orderByChild("Teilnehmer").equalTo(rndmKey).addListenerForSingleValueEvent(new ValueEventListener() { //In Kursteinehmer nach gleichen Knoten suchen
-
+        mZusagenDb.orderByChild("User").equalTo(userKey).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.getValue()!=null) {
-                    for(DataSnapshot adSnapshot:dataSnapshot.getChildren()){
-                        mMeets.add(adSnapshot.child("Meet").getValue(String.class)); // für jeden Treffer die MeetKeys in mMeets schreiben
+                if(dataSnapshot.getValue()!=null){
+                    for(DataSnapshot adSnap:dataSnapshot.getChildren()){
+                        mTerminKeys.add(adSnap.child("Termin").getValue(String.class));
+                        anzZusagen=mTerminKeys.size();
+                        tvAnzZusagen.setText(""+anzZusagen);
                     }
-
-                }else {
-                    return;
                 }
 
-                if(mMeets.size()!=0) {
-                    for (String k: mMeets){ // Über mMeets iterieren
-                        mDatabase.orderByChild("meet").equalTo(k).addListenerForSingleValueEvent(new ValueEventListener() { // in meets nach gleichen meetKeys (DB und mMeets) suchen
-
+                if(mTerminKeys.size()!=0) {
+                    for (int i = 0; i < mTerminKeys.size(); i++) {
+                        String terminKey = mTerminKeys.get(i);
+                        final int finalI = i;
+                        mTermineDb.child(terminKey).addValueEventListener(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                if(dataSnapshot.getValue()!=null) {
-                                    for(DataSnapshot adSnapshot:dataSnapshot.getChildren()){ // für jeden Treffer den DatumWert in mDates schreiben
-                                        mDates.add(adSnapshot.child("datum").getValue(String.class));
-                                    }
+                                arrTermine.add(dataSnapshot.getValue(Termine.class));
+                                arrModulKeys.add(dataSnapshot.child("Meet").getValue(String.class));
+                                arrTermine.get(finalI).setDate();
+                                Collections.sort(arrTermine);
 
-                                }else {
-                                    return;
+                                if (arrModulKeys.size() != 0) {
+
+                                        String meetKey = arrModulKeys.get(finalI);
+                                        DatabaseReference ref = mModulDb.child(meetKey);
+
+                                        ref.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                arrMeetingsTxt.add(dataSnapshot.child("modul").getValue(String.class));
+
+                                                if (arrMeetingsTxt.size() != 0) {
+                                                        final int k = finalI;
+                                                        arrBox.add(new BoxInhalt());
+                                                        arrBox.get(k).setDatum(arrTermine.get(k).getDatum());
+                                                        arrBox.get(k).setBeschreibung(arrTermine.get(k).getBeschreibung());
+                                                        arrBox.get(k).setZeitVon(arrTermine.get(k).getZeit_von());
+                                                        arrBox.get(k).setZeitBis(arrTermine.get(k).getZeit_bis());
+                                                        arrBox.get(k).setModul(arrMeetingsTxt.get(k));
+
+                                                        arrTV.add(new terminBoxView(getApplicationContext()));
+                                                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT,
+                                                                LinearLayout.LayoutParams.WRAP_CONTENT);
+                                                        params.gravity = Gravity.CENTER;
+                                                        arrTV.get(k).setLayoutParams(params);
+
+                                                        View.OnClickListener onClick = new View.OnClickListener() {
+                                                            @Override
+                                                            public void onClick(View v) {
+                                                                int id = v.getId();
+                                                                if (id == R.id.tvClick) {
+                                                                    Intent groupOverViewIntent = new Intent(getApplicationContext(), GroupOverviewActivity.class);
+                                                                    groupOverViewIntent.putExtra("meetKey", arrModulKeys.get(k));
+                                                                    groupOverViewIntent.putExtra("userKey", userKey);
+                                                                    startActivity(groupOverViewIntent);
+                                                                }
+                                                            }
+                                                        };
+                                                        arrTV.get(k).setInhalt(arrBox.get(k), onClick);
+
+
+                                                        scrollLin.addView(arrTV.get(k));
+
+
+
+                                                }
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+
+
+
+
+
+
                                 }
+
+
                             }
 
                             @Override
@@ -73,14 +154,12 @@ public class CalendarActivity extends AppCompatActivity {
 
                             }
                         });
-
-
                     }
+
+
+
+
                 }
-
-
-
-
 
             }
 
@@ -88,27 +167,11 @@ public class CalendarActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-
-
-
-
-
         });
 
-        for (String d: mDates){ // über die mDates iterieren und jeden Datumstring nach der Konvertierung nach Long in den Kalenderview schreiben
-            String d_parts[] = d.split("/");
-            int day = Integer.parseInt(d_parts[0]);
-            int month = Integer.parseInt(d_parts[1]);
-            int year = Integer.parseInt(d_parts[2]);
-            Calendar cal = Calendar.getInstance();
-            cal.set(Calendar.YEAR, year);
-            cal.set(Calendar.MONTH, month);
-            cal.set(Calendar.DAY_OF_MONTH, day);
-            long millitime = cal.getTimeInMillis();
-            cv.setDate(millitime, true, true);
-
-        }
 
 
     }
+
 }
+

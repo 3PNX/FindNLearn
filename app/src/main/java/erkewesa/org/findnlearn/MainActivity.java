@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent calendarActivityIntent=new Intent(getApplicationContext(),CalendarActivity.class);
+                calendarActivityIntent.putExtra("user",rndmKey);
                 startActivity(calendarActivityIntent);
             }
         });

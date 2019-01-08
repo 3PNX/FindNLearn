@@ -39,16 +39,8 @@ public class testView extends LinearLayout {
     private final int colorNichtZugesagt=Color.parseColor("#d1f2b3");
     private final int colorNichtAbgesagt=Color.parseColor("#f29785");
 
-    private Dialog myDialog;
-    private Context context;
 
-    private ArrayList<String> arrZusagen=new ArrayList<>();
-    private ArrayList<String> arrAbsagen=new ArrayList<>();
 
-    private TextView txtClose;
-    private TextView tvBeschreibung;
-    private TextView tvZusagenZahl;
-    private TextView tvAbsagenZahl;
 
 
 
@@ -86,16 +78,9 @@ public class testView extends LinearLayout {
         btnZusagen=findViewById(R.id.o_zusagen);
         btnAbsagen=findViewById(R.id.o_absagen);
         tvClick=findViewById(R.id.tvClick);
-        myDialog=new Dialog(context.getApplicationContext());
 
 
 
-        myDialog.setContentView(R.layout.termin_popup);
-
-       txtClose=myDialog.findViewById(R.id.txtTerminClose);
-       tvBeschreibung=myDialog.findViewById(R.id.tvPopUpBeschreibung);
-       tvZusagenZahl=myDialog.findViewById(R.id.tvPopUpZusagenZahl);
-       tvAbsagenZahl=myDialog.findViewById(R.id.tvPopUpAbsagenZahl);
 
 
     }
