@@ -84,6 +84,7 @@ public class GroupOverviewActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent CreateTerminIntent=new Intent(getApplicationContext(),CreateTerminActivity.class);
                 CreateTerminIntent.putExtra("meetKey",meetKey);
+                CreateTerminIntent.putExtra("userKey",userKey);
                 startActivity(CreateTerminIntent);
             }
         });
@@ -174,8 +175,12 @@ public class GroupOverviewActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent HomeIntent =new Intent(getApplicationContext(),MainActivity.class);
 
-
+        startActivity(HomeIntent);
+    }
 
     public void showPopUp(String termin, String beschreibung){
 

@@ -23,7 +23,6 @@ import java.util.ArrayList;
 public class ViewGroupActivity extends AppCompatActivity {
 
     private String rndmKey;
-    private String username;
     ListView lvMyGroups;
     private ArrayList<Meetings> mResults=new ArrayList<Meetings>();
     private ArrayList<String> mMeets=new ArrayList();
@@ -35,7 +34,7 @@ public class ViewGroupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_group);
         lvMyGroups=findViewById(R.id.LvMyGroups);
         rndmKey=getIntent().getStringExtra("RandomKey");
-        username=getIntent().getStringExtra("username");
+
 
 
 

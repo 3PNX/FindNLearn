@@ -160,7 +160,7 @@ public class CreateTerminActivity extends AppCompatActivity {
                   }
 
 
-//                  startActivity(GroupOverviewIntent);
+                  startActivity(GroupOverviewIntent);
 
 
 
@@ -171,9 +171,9 @@ public class CreateTerminActivity extends AppCompatActivity {
 
 
     }
-
-    /*public void onBackPressed(){
+    @Override
+    public void onBackPressed(){
         this.startActivity(GroupOverviewIntent);
-    }*/
+    }
 
 }

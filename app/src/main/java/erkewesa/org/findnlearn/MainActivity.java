@@ -88,14 +88,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*Button profileBtn=findViewById(R.id.profileBtn);
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent profileActivityIntent=new Intent(getApplicationContext(),ProfileActivity.class);
-                startActivity(profileActivityIntent);
-            }
-        });*/
+
 
         Button createBtn=findViewById(R.id.createBtn);
         createBtn.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +105,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-
-
+    @Override
+    public void onBackPressed() {
+        this.finishAffinity();
+    }
 }
