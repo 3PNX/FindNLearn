@@ -8,6 +8,42 @@
     tools:context=".CreateActivity">
 
     <TextView
+        android:id="@+id/cr_tv_timee"
+        android:layout_width="114dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginLeft="11dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginRight="71dp"
+        android:layout_marginBottom="31dp"
+        android:text="select end time"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/cr_create"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cr_tv_timeb"
+        app:layout_constraintTop_toBottomOf="@+id/cr_tv_date"
+        app:layout_constraintVertical_bias="0.428" />
+
+    <TextView
+        android:id="@+id/cr_tv_timeb"
+        android:layout_width="114dp"
+        android:layout_height="41dp"
+        android:layout_marginStart="74dp"
+        android:layout_marginLeft="74dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="11dp"
+        android:layout_marginRight="11dp"
+        android:layout_marginBottom="107dp"
+        android:text="select begin time"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/cr_popup"
+        app:layout_constraintEnd_toStartOf="@+id/cr_tv_timee"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cr_tv_date"
+        app:layout_constraintVertical_bias="0.428" />
+
+    <TextView
         android:id="@+id/calendarTitleTxV2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -67,11 +103,17 @@
         android:id="@+id/cr_l_tag"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
-        android:layout_marginLeft="60dp"
-        android:layout_marginTop="12dp"
-        android:text="Tag"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="5dp"
+        android:text="Datum"
         android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/cr_tv_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cr_mod" />
 
@@ -96,7 +138,7 @@
     <Spinner
         android:id="@+id/cr_mod"
         android:layout_width="263dp"
-        android:layout_height="28dp"
+        android:layout_height="49dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="220dp"
@@ -137,7 +179,7 @@
         android:layout_marginLeft="207dp"
         android:layout_marginEnd="60dp"
         android:layout_marginRight="60dp"
-        android:layout_marginBottom="84dp"
+        android:layout_marginBottom="52dp"
         android:background="@color/colorPrimary"
         android:text="CREATE MEET"
         android:textColor="@color/colorAccent"
@@ -168,21 +210,19 @@
 
     <TextView
         android:id="@+id/cr_tv_date"
-        android:layout_width="220dp"
+        android:layout_width="114dp"
         android:layout_height="41dp"
         android:layout_marginStart="82dp"
         android:layout_marginLeft="82dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="82dp"
         android:layout_marginRight="82dp"
-        android:layout_marginBottom="34dp"
+        android:layout_marginBottom="80dp"
         android:text="select a date here"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toTopOf="@+id/cr_create"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cr_l_tag"
-        app:layout_constraintVertical_bias="0.25" />
+        app:layout_constraintTop_toBottomOf="@+id/cr_l_tag" />
 
 </android.support.constraint.ConstraintLayout>

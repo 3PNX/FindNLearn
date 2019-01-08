@@ -1,6 +1,7 @@
 package erkewesa.org.findnlearn;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -33,6 +34,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import android.widget.ArrayAdapter;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.util.Calendar;
@@ -43,12 +45,24 @@ import erkewesa.org.findnlearn.data.FindNLearnDbHelper;
 public class CreateActivity extends AppCompatActivity {
     private DatabaseReference mRef;
     private static final String TAG = "CreateActivity";
+    private static final String HOUR = "CreateActivity";
     Spinner cr_stuga;
     Spinner cr_se;
     Spinner cr_mod;
-    // Dec new DatePicker
+    // Dec new DatePicker and TimePicker
     private TextView cr_date;
+    private TextView cr_timeb;
+    private TextView cr_timee;
     private DatePickerDialog.OnDateSetListener cr_date_list;
+    private TimePickerDialog.OnTimeSetListener cr_timeb_list;
+    private TimePickerDialog.OnTimeSetListener cr_timee_list;
+    private TimePickerDialog cr_tp_timeb;
+    private TimePickerDialog cr_tp_timee;
+
+    private String zeit_von = "00:00";
+    private String zeit_bis = "00:00";
+
+
     // end of Dec
     Button cr_create;
     TextView cr_popup;
@@ -99,6 +113,8 @@ public class CreateActivity extends AppCompatActivity {
         cr_mod=findViewById(R.id.cr_mod);
         // new Date init
         cr_date = findViewById(R.id.cr_tv_date);
+        cr_timeb = findViewById(R.id.cr_tv_timeb);
+        cr_timee = findViewById(R.id.cr_tv_timee);
         // new Date end
         cr_create=(Button) findViewById(R.id.cr_create);
         cr_popup = findViewById(R.id.cr_popup);
@@ -130,6 +146,61 @@ public class CreateActivity extends AppCompatActivity {
             }
         };
         // end of date pickers logic
+        // start of time pickers logic
+
+        // begin-time
+        cr_timeb.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                cr_tp_timeb = new TimePickerDialog(CreateActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timepicker, int hourOfDay, int minutes) {
+                        String min = ""+minutes;
+                        if  (min.equals("0")){
+                            min = "00";
+                        }
+                        cr_timeb.setText(hourOfDay + ":" + min + " Uhr bis ");
+
+                        zeit_von = hourOfDay + ":" + min;
+
+                    }
+                }, 0, 0, false);
+
+                cr_tp_timeb.show();
+
+
+            }
+        });
+
+        // end-time
+        cr_timee.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                cr_tp_timee = new TimePickerDialog(CreateActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timepicker, int hourOfDay, int minutes) {
+                        String min = ""+minutes;
+                        if  (min.equals("0")){
+                            min = "00";
+                        }
+                        cr_timee.setText(hourOfDay + ":" + min + " Uhr");
+
+                        zeit_bis = hourOfDay + ":" + min;
+                    }
+                }, 0, 0, false);
+
+                cr_tp_timee.show();
+            }
+        });
+
+
+        //end
+
+
+
+
+
+
         DatabaseReference dbStudiengänge=mDataBase.child("Studiengänge");
         final ArrayAdapter<String> studAdapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item, arrStudiengaenge);
         final ArrayAdapter<String> semAdapter = new ArrayAdapter<>(this,android.R.layout.simple_selectable_list_item, arrSemester);
@@ -149,6 +220,8 @@ public class CreateActivity extends AppCompatActivity {
         cr_date.setVisibility(View.INVISIBLE);
         cr_popup.setVisibility(View.INVISIBLE);
         cr_create.setVisibility(View.INVISIBLE);
+        cr_timeb.setVisibility(View.INVISIBLE);
+        cr_timee.setVisibility(View.INVISIBLE);
 
 
         dbStudiengänge.addChildEventListener(new ChildEventListener() {
@@ -194,8 +267,8 @@ public class CreateActivity extends AppCompatActivity {
                     dbSemester= mDataBase.child("Semester").child(selectedStudiengang);
                     tvSemester.setVisibility(View.VISIBLE);
                     semesterSp.setVisibility(View.VISIBLE);
-                    cr_date.setVisibility(View.VISIBLE);
-                    cr_create.setVisibility(View.VISIBLE);
+
+
                 }catch(DatabaseException ex){
                     dbSemester = mDataBase.child("Semester").child("Wahl");
                     tvSemester.setVisibility(View.INVISIBLE);
@@ -204,6 +277,8 @@ public class CreateActivity extends AppCompatActivity {
                     modulSp.setVisibility(View.INVISIBLE);
                     cr_date.setVisibility(View.INVISIBLE);
                     cr_create.setVisibility(View.INVISIBLE);
+                    cr_timeb.setVisibility(View.INVISIBLE);
+                    cr_timee.setVisibility(View.INVISIBLE);
                 }
 
                 dbSemester.addValueEventListener(new ValueEventListener() {
@@ -250,6 +325,8 @@ public class CreateActivity extends AppCompatActivity {
                                 tvTag.setVisibility(View.VISIBLE);
                                 cr_date.setVisibility(View.VISIBLE);
                                 cr_create.setVisibility(View.VISIBLE);
+                                cr_timeb.setVisibility(View.VISIBLE);
+                                cr_timee.setVisibility(View.VISIBLE);
 
                                 dbModul.addChildEventListener(new ChildEventListener() {
                                     @Override
@@ -336,6 +413,8 @@ public class CreateActivity extends AppCompatActivity {
                DatabaseReference mRefTermine= mDataBase.child("Termine").push();
                 mRefTermine.child("Meet").setValue(meetKey);
                 mRefTermine.child("Datum").setValue(cr_date.getText().toString());
+                mRefTermine.child("Zeit_bis").setValue(zeit_bis);
+                mRefTermine.child("Zeit_von").setValue(zeit_von);
 
                 DatabaseReference mRefTeilnehmer = mDataBase.child("Kursteilnehmer").push();
                 mRefTeilnehmer.child("Meet").setValue(meetKey);
@@ -345,13 +424,7 @@ public class CreateActivity extends AppCompatActivity {
 
 
                 Toast.makeText(CreateActivity.this, "succeeded!", Toast.LENGTH_LONG).show();
-//                cr_popup.setVisibility(View.VISIBLE);
 
-//                if ((mRefChild.push().setValue(m)) != null) {
-//                    cr_popup.setVisibility(View.VISIBLE);
-//                   Popper pop = new Popper();
-//                   pop.confirmWithPopup("failed");
-//                }
 
 
 
@@ -366,4 +439,7 @@ public class CreateActivity extends AppCompatActivity {
 
 
     }
+
+
+
 }
