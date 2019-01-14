@@ -83,20 +83,20 @@ public class CalendarActivity extends AppCompatActivity {
                                                 arrMeetingsTxt.add(dataSnapshot.child("modul").getValue(String.class));
 
                                                 if (arrMeetingsTxt.size() != 0) {
-                                                        final int k = finalI;
+
                                                         arrBox.add(new BoxInhalt());
-                                                        arrBox.get(k).setDatum(arrTermine.get(k).getDatum());
-                                                        arrBox.get(k).setBeschreibung(arrTermine.get(k).getBeschreibung());
-                                                        arrBox.get(k).setZeitVon(arrTermine.get(k).getZeit_von());
-                                                        arrBox.get(k).setZeitBis(arrTermine.get(k).getZeit_bis());
-                                                        arrBox.get(k).setModul(arrMeetingsTxt.get(k));
+                                                        arrBox.get(finalI).setDatum(arrTermine.get(finalI).getDatum());
+                                                        arrBox.get(finalI).setBeschreibung(arrTermine.get(finalI).getBeschreibung());
+                                                        arrBox.get(finalI).setZeitVon(arrTermine.get(finalI).getZeit_von());
+                                                        arrBox.get(finalI).setZeitBis(arrTermine.get(finalI).getZeit_bis());
+                                                        arrBox.get(finalI).setModul(arrMeetingsTxt.get(finalI));
 
                                                         arrTV.add(new terminBoxView(getApplicationContext()));
                                                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                                                                 LinearLayout.LayoutParams.WRAP_CONTENT,
                                                                 LinearLayout.LayoutParams.WRAP_CONTENT);
                                                         params.gravity = Gravity.CENTER;
-                                                        arrTV.get(k).setLayoutParams(params);
+                                                        arrTV.get(finalI).setLayoutParams(params);
 
                                                         View.OnClickListener onClick = new View.OnClickListener() {
                                                             @Override
@@ -104,16 +104,16 @@ public class CalendarActivity extends AppCompatActivity {
                                                                 int id = v.getId();
                                                                 if (id == R.id.tvClick) {
                                                                     Intent groupOverViewIntent = new Intent(getApplicationContext(), GroupOverviewActivity.class);
-                                                                    groupOverViewIntent.putExtra("meetKey", arrModulKeys.get(k));
+                                                                    groupOverViewIntent.putExtra("meetKey", arrModulKeys.get(finalI));
                                                                     groupOverViewIntent.putExtra("userKey", userKey);
                                                                     startActivity(groupOverViewIntent);
                                                                 }
                                                             }
                                                         };
-                                                        arrTV.get(k).setInhalt(arrBox.get(k), onClick);
+                                                        arrTV.get(finalI).setInhalt(arrBox.get(finalI), onClick);
 
 
-                                                        scrollLin.addView(arrTV.get(k));
+                                                        scrollLin.addView(arrTV.get(finalI));
 
 
 
